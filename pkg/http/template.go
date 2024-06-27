@@ -11,10 +11,6 @@ import (
 //go:embed ui
 var efs embed.FS
 
-func (s *Server) internalErrorHandler(w http.ResponseWriter, r *http.Request, err error) {
-	s.doTemplate(w, r, "p2/views/internal_error.p2", pongo2.Context{"error": err})
-}
-
 func (s *Server) templateErrorHandler(w http.ResponseWriter, err error) {
 	fmt.Fprintf(w, "Error while rendering template: %s\n", err)
 }
