@@ -27,10 +27,11 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Use(middleware.Heartbeat("/ping"))
 	s.r.Use(middleware.Logger)
 
-	s.r.Handle("/static", http.FileServer(http.FS(sub)))
+	s.r.Handle("/static/*", http.FileServer(http.FS(sub)))
 
-	s.r.Get("/ui/account/create", s.uiAccountCreateForm)
-	s.r.Post("/ui/account/create", s.uiAccountCreatePost)
+	s.r.Get("/ui/accounts", s.uiAccountsList)
+	s.r.Get("/ui/accounts/new", s.uiAccountCreateForm)
+	s.r.Post("/ui/accounts", s.uiAccountCreatePost)
 
 	return s, nil
 }

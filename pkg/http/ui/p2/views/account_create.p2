@@ -4,7 +4,7 @@
 
 {% block content %}
 <div>
-  <form method="POST">
+  <form method="POST" action="/ui/accounts">
     <label for="name">Name</label>
     <input type="text" name="account_name" />
     <br />

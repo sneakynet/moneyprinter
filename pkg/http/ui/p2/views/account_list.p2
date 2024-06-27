@@ -1,0 +1,22 @@
+{% extends "../base.p2" %}
+
+{% block title %}Accounts{% endblock %}
+
+{% block content %}
+<div>
+  <table>
+    <tr>
+      <th>Account Name</th>
+      <th>Account Contact</th>
+      <th>Actions</th>
+    </tr>
+    {% for account in accounts %}
+    <tr>
+      <td>{{ account.Name }}</td>
+      <td>{{ account.Contact }}</td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
