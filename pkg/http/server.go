@@ -34,6 +34,7 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Get("/ui/accounts/new", s.uiViewAccountCreateForm)
 	s.r.Get("/ui/accounts/bulk", s.uiViewAccountBulkForm)
 	s.r.Post("/ui/accounts/bulk", s.uiHandleAccountCreateBulk)
+	s.r.Get("/ui/account/{id}", s.uiViewAccount)
 
 	return s, nil
 }

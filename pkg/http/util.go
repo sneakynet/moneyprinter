@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"io"
 	"log/slog"
+	"strconv"
 )
 
 func (s *Server) csvToMap(reader io.Reader) []map[string]string {
@@ -30,4 +31,12 @@ func (s *Server) csvToMap(reader io.Reader) []map[string]string {
 		}
 	}
 	return rows
+}
+
+func (s *Server) strToUint(st string) uint {
+	int, err := strconv.Atoi(st)
+	if err != nil {
+		return 0
+	}
+	return uint(int)
 }

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/flosch/pongo2/v5"
+	"github.com/go-chi/chi/v5"
 
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
@@ -26,6 +27,16 @@ func (s *Server) uiViewAccountsList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s.doTemplate(w, r, "p2/views/account_list.p2", pongo2.Context{"accounts": accounts})
+}
+
+func (s *Server) uiViewAccount(w http.ResponseWriter, r *http.Request) {
+	account, err := s.d.AccountGet(s.strToUint(chi.URLParam(r, "id")))
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	s.doTemplate(w, r, "p2/views/account.p2", pongo2.Context{"account": account})
 }
 
 func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Request) {

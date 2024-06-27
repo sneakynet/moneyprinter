@@ -17,3 +17,10 @@ func (db *DB) AccountList() ([]types.Account, error) {
 	res := db.d.Find(&accounts)
 	return accounts, res.Error
 }
+
+// AccountGet returns a single account identified by its specific ID
+func (db *DB) AccountGet(id uint) (types.Account, error) {
+	acct := types.Account{}
+	res := db.d.First(&acct, id)
+	return acct, res.Error
+}

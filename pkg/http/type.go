@@ -26,4 +26,5 @@ type Option func(*Server)
 type DB interface {
 	AccountCreate(*types.Account) (uint, error)
 	AccountList() ([]types.Account, error)
+	AccountGet(uint) (types.Account, error)
 }

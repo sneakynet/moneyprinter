@@ -1,0 +1,10 @@
+{% extends "../base.p2" %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+<div>
+  <p>Name: {{ account.Name }}</p>
+  <p>Contact: {{ account.Contact }}</p>
+</div>
+{% endblock %}
