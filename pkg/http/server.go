@@ -29,9 +29,11 @@ func New(opts ...Option) (*Server, error) {
 
 	s.r.Handle("/static/*", http.FileServer(http.FS(sub)))
 
-	s.r.Get("/ui/accounts", s.uiAccountsList)
-	s.r.Get("/ui/accounts/new", s.uiAccountCreateForm)
-	s.r.Post("/ui/accounts", s.uiAccountCreatePost)
+	s.r.Get("/ui/accounts", s.uiViewAccountsList)
+	s.r.Post("/ui/accounts", s.uiHandleAccountCreateSingle)
+	s.r.Get("/ui/accounts/new", s.uiViewAccountCreateForm)
+	s.r.Get("/ui/accounts/bulk", s.uiViewAccountBulkForm)
+	s.r.Post("/ui/accounts/bulk", s.uiHandleAccountCreateBulk)
 
 	return s, nil
 }
