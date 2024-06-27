@@ -12,6 +12,8 @@ type Account struct {
 	ID      uint
 	Name    string
 	Contact string
+
+	Circuits []Circuit
 }
 
 // Circuit specifies a single connection that is paid for by an
@@ -19,7 +21,10 @@ type Account struct {
 type Circuit struct {
 	gorm.Model
 
-	ID       uint
-	DN       uint
+	ID        uint
+	AccountID uint
+
 	Location string
+	Type     string
+	DN       uint
 }

@@ -1,0 +1,19 @@
+{% extends "../base.p2" %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<div>
+  <form method="POST">
+    <label for="name">Name</label>
+    <input type="text" name="account_name" />
+    <br />
+
+    <label for="contact">Contact</label>
+    <input type="text" name="account_contact" />
+    <br />
+
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

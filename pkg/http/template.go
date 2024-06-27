@@ -1,0 +1,34 @@
+package http
+
+import (
+	"embed"
+	"fmt"
+	"net/http"
+
+	"github.com/flosch/pongo2/v5"
+)
+
+//go:embed ui
+var efs embed.FS
+
+func (s *Server) internalErrorHandler(w http.ResponseWriter, r *http.Request, err error) {
+	s.doTemplate(w, r, "p2/views/internal_error.p2", pongo2.Context{"error": err})
+}
+
+func (s *Server) templateErrorHandler(w http.ResponseWriter, err error) {
+	fmt.Fprintf(w, "Error while rendering template: %s\n", err)
+}
+
+func (s *Server) doTemplate(w http.ResponseWriter, r *http.Request, tmpl string, ctx pongo2.Context) {
+	if ctx == nil {
+		ctx = pongo2.Context{}
+	}
+	t, err := s.tpl.FromCache(tmpl)
+	if err != nil {
+		s.templateErrorHandler(w, err)
+		return
+	}
+	if err := t.ExecuteWriter(ctx, w); err != nil {
+		s.templateErrorHandler(w, err)
+	}
+}
