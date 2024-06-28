@@ -11,9 +11,33 @@ type Account struct {
 
 	ID      uint
 	Name    string
+	Alias   string
 	Contact string
 
+	DNs      []DN
 	Circuits []Circuit
+}
+
+// A DN is associated with a Line and has an identifying name with it.
+// This allows the system to provision caller ID records.
+type DN struct {
+	ID      uint
+	Number  uint
+	Display string
+
+	LineID    uint
+	AccountID uint
+}
+
+// A Line has one or more DNs and is carried by a circuit.  The line
+// is the basic billable unit of access, which may have one or more
+// DNs associated with it.
+type Line struct {
+	ID uint
+
+	CircuitID uint
+	Type      string
+	DNs       []DN
 }
 
 // Circuit specifies a single connection that is paid for by an
@@ -26,5 +50,5 @@ type Circuit struct {
 
 	Location string
 	Type     string
-	DN       uint
+	Lines    []Line
 }
