@@ -47,10 +47,15 @@ func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Requ
 
 	aName := r.FormValue("account_name")
 	aContact := r.FormValue("account_contact")
+	aAlias := r.FormValue("account_alias")
 
 	slog.Debug("Want to create account", "name", aName, "contact", aContact)
 
-	id, err := s.d.AccountCreate(&types.Account{Name: aName, Contact: aContact})
+	id, err := s.d.AccountCreate(&types.Account{
+		Name:    aName,
+		Contact: aContact,
+		Alias:   aAlias,
+	})
 
 	if err != nil {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
@@ -81,7 +86,11 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 			continue
 		}
 
-		_, err := s.d.AccountCreate(&types.Account{Name: account["Name"], Contact: account["Contact"]})
+		_, err := s.d.AccountCreate(&types.Account{
+			Name:    account["Name"],
+			Contact: account["Contact"],
+			Alias:   account["Alias"],
+		})
 		if err != nil {
 			s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 			return

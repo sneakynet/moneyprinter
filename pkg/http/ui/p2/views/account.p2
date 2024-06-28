@@ -6,5 +6,6 @@
 <div>
   <p>Name: {{ account.Name }}</p>
   <p>Contact: {{ account.Contact }}</p>
+  <p>Alias: {{ account.Alias }}</p>
 </div>
 {% endblock %}

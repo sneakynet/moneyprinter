@@ -5,12 +5,16 @@
 {% block content %}
 <div>
   <form method="POST" action="/ui/accounts">
-    <label for="name">Name</label>
+    <label for="account_name">Name</label>
     <input type="text" name="account_name" />
     <br />
 
-    <label for="contact">Contact</label>
+    <label for="account_contact">Contact</label>
     <input type="text" name="account_contact" />
+    <br />
+
+    <label for="account_alias">Alias</label>
+    <input type="text" name="account_alias" />
     <br />
 
     <input type="submit" />

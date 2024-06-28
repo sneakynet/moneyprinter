@@ -6,15 +6,25 @@
 <div>
   <table>
     <tr>
+      <th>ID</th>
       <th>Account Name</th>
       <th>Account Contact</th>
+      <th>Account Alias</th>
       <th>Actions</th>
     </tr>
     {% for account in accounts %}
     <tr>
+      <td>{{ account.ID }}</td>
       <td>{{ account.Name }}</td>
       <td>{{ account.Contact }}</td>
-      <td></td>
+      <td>{{ account.Alias }}</td>
+      <td>
+        <a href="/ui/account/{{ account.ID }}">Detail</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan=4>There are no accounts here.  Perhaps you'd like to <a href="/ui/accounts/bulk">add some</a>?</td>
     </tr>
     {% endfor %}
   </table>
