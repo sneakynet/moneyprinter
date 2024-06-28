@@ -48,6 +48,7 @@ func main() {
 		}
 	}()
 
+	slog.Info("MoneyPrinter is ready to go BRRRRRRRR")
 	<-quit
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
