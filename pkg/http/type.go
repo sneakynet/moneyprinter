@@ -27,4 +27,13 @@ type DB interface {
 	AccountCreate(*types.Account) (uint, error)
 	AccountList() ([]types.Account, error)
 	AccountGet(uint) (types.Account, error)
+	AccountGetByName(string) (types.Account, error)
+
+	LineCreate(*types.Line) (uint, error)
+	LineListByAccountID(uint) ([]types.Line, error)
+	LineGet(uint) (types.Line, error)
+
+	DNCreate(*types.DN) (uint, error)
+	DNListByAccountID(uint) ([]types.DN, error)
+	DNGet(uint) (types.DN, error)
 }

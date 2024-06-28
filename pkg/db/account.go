@@ -24,3 +24,12 @@ func (db *DB) AccountGet(id uint) (types.Account, error) {
 	res := db.d.First(&acct, id)
 	return acct, res.Error
 }
+
+// AccountGetByName provides a way to retrieve accounts matching a
+// specific name, rather than having to have access to the numeric
+// account ID.
+func (db *DB) AccountGetByName(name string) (types.Account, error) {
+	acct := types.Account{}
+	res := db.d.Where(&types.Account{Name: name}).Find(&acct)
+	return acct, res.Error
+}

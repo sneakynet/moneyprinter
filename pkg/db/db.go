@@ -31,5 +31,13 @@ func (db *DB) Migrate() error {
 	if err := db.d.AutoMigrate(&types.Circuit{}); err != nil {
 		return err
 	}
+
+	if err := db.d.AutoMigrate(&types.DN{}); err != nil {
+		return err
+	}
+
+	if err := db.d.AutoMigrate(&types.Line{}); err != nil {
+		return err
+	}
 	return nil
 }

@@ -15,6 +15,7 @@ type Account struct {
 	Contact string
 
 	DNs      []DN
+	Lines    []Line
 	Circuits []Circuit
 }
 
@@ -36,8 +37,10 @@ type Line struct {
 	ID uint
 
 	CircuitID uint
+	AccountID uint
 	Type      string
 	DNs       []DN
+	Equipment string
 }
 
 // Circuit specifies a single connection that is paid for by an
