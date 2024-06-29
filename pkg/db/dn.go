@@ -25,3 +25,10 @@ func (db *DB) DNGet(id uint) (types.DN, error) {
 	return dn, res.Error
 }
 
+// DNGetByNumber fetches a DN by its number, which is not related to
+// its ID.
+func (db *DB) DNGetByNumber(n uint) (types.DN, error) {
+	dn := types.DN{}
+	res := db.d.Where(&types.DN{Number: n}).First(&dn)
+	return dn, res.Error
+}

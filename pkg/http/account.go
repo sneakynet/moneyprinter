@@ -36,7 +36,18 @@ func (s *Server) uiViewAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/account.p2", pongo2.Context{"account": account})
+	lines, err := s.d.LineListByAccountID(account.ID)
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	ctx := pongo2.Context{
+		"account": account,
+		"lines": lines,
+	}
+
+	s.doTemplate(w, r, "p2/views/account.p2", ctx)
 }
 
 func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Request) {
@@ -73,29 +84,61 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 		return
 	}
 	defer f.Close()
-	accounts := s.csvToMap(f)
+	records := s.csvToMap(f)
 
 	// Ideally we'd submit all these in a single batch to the
 	// database for efficiency, but this is easier to filter for
 	// dupes or CSV issues, and in reality the scale that
 	// moneyprinter is expected to see is fairly small, so the
 	// performance "gain" isn't worth the added complexity.
-	names := make(map[string]struct{})
-	for _, account := range accounts {
-		if _, seen := names[account["Name"]]; len(account["Name"]) == 0 || seen {
+	for _, record := range records {
+		if len(record["Name"]) == 0 {
 			continue
 		}
 
-		_, err := s.d.AccountCreate(&types.Account{
-			Name:    account["Name"],
-			Contact: account["Contact"],
-			Alias:   account["Alias"],
-		})
+		acct, err := s.d.AccountGetByName(record["Name"])
+		acctID := acct.ID
 		if err != nil {
-			s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
-			return
+			slog.Warn("Error fetching account by name", "error", err)
+			acctID, err = s.d.AccountCreate(&types.Account{
+				Name:    record["Name"],
+				Contact: record["Contact"],
+				Alias:   record["Alias"],
+			})
+			if err != nil {
+				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+				return
+			}
 		}
-		names[account["Name"]] = struct{}{}
+
+		if _, err := s.d.DNGetByNumber(s.strToUint(record["DN"])); err != nil {
+			slog.Warn("Error fetching DN by number", "error", err)
+			slog.Debug("Want to create a line", "linetype", record["LINETYPE"])
+			if record["LINETYPE"] == "FXS-LOOP-START" {
+				lineID, err := s.d.LineCreate(&types.Line{
+					AccountID:  acctID,
+					Type:       record["LINETYPE"],
+					Switch:     record["SWITCH"],
+					Equipment:  record["EQUIPMENT"],
+					Wirecenter: record["WIRECENTER"],
+				})
+				if err != nil {
+					s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+					return
+				}
+
+				_, err = s.d.DNCreate(&types.DN{
+					Number:    s.strToUint(record["DN"]),
+					Display:   record["CNAM"],
+					AccountID: acctID,
+					LineID:    lineID,
+				})
+				if err != nil {
+					s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+					return
+				}
+			}
+		}
 	}
 
 	http.Redirect(w, r, "/ui/accounts", http.StatusSeeOther)

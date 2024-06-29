@@ -21,7 +21,7 @@ func (db *DB) AccountList() ([]types.Account, error) {
 // AccountGet returns a single account identified by its specific ID
 func (db *DB) AccountGet(id uint) (types.Account, error) {
 	acct := types.Account{}
-	res := db.d.First(&acct, id)
+	res := db.d.Preload("Lines").Preload("DNs").First(&acct, id)
 	return acct, res.Error
 }
 
@@ -30,6 +30,6 @@ func (db *DB) AccountGet(id uint) (types.Account, error) {
 // account ID.
 func (db *DB) AccountGetByName(name string) (types.Account, error) {
 	acct := types.Account{}
-	res := db.d.Where(&types.Account{Name: name}).Find(&acct)
+	res := db.d.Where(&types.Account{Name: name}).First(&acct)
 	return acct, res.Error
 }

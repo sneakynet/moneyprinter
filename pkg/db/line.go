@@ -21,7 +21,7 @@ func (db *DB) LineList() ([]types.Line, error) {
 // and returns only lines that are active for a given account.
 func (db *DB) LineListByAccountID(id uint) ([]types.Line, error) {
 	lines := []types.Line{}
-	res := db.d.Where(&types.Line{AccountID: id}).Find(&lines)
+	res := db.d.Where(&types.Line{AccountID: id}).Preload("DNs").Find(&lines)
 	return lines, res.Error
 }
 

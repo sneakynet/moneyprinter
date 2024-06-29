@@ -36,4 +36,5 @@ type DB interface {
 	DNCreate(*types.DN) (uint, error)
 	DNListByAccountID(uint) ([]types.DN, error)
 	DNGet(uint) (types.DN, error)
+	DNGetByNumber(uint) (types.DN, error)
 }

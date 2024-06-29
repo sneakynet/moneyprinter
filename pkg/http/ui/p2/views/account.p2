@@ -7,5 +7,27 @@
   <p>Name: {{ account.Name }}</p>
   <p>Contact: {{ account.Contact }}</p>
   <p>Alias: {{ account.Alias }}</p>
+  <table>
+    <tr>
+      <th>DN</th>
+      <th>CNAM</th>
+      <th>Type</th>
+      <th>Switch</th>
+      <th>Equipment</th>
+      <th>Wirecenter</th>
+    </tr>
+    {% for line in lines %}
+    {% for dn in line.DNs %}
+    <tr>
+      <td>{{ dn.Number }}</td>
+      <td>{{ dn.Display }}</td>
+      <td>{{ line.Type }}</td>
+      <td>{{ line.Switch }}</td>
+      <td>{{ line.Equipment }}</td>
+      <td>{{ line.Wirecenter }}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+  </table>
 </div>
 {% endblock %}

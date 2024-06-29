@@ -36,11 +36,13 @@ type DN struct {
 type Line struct {
 	ID uint
 
-	CircuitID uint
-	AccountID uint
-	Type      string
-	DNs       []DN
-	Equipment string
+	CircuitID  uint
+	AccountID  uint
+	Type       string
+	DNs        []DN
+	Switch     string
+	Equipment  string
+	Wirecenter string
 }
 
 // Circuit specifies a single connection that is paid for by an

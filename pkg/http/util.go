@@ -5,6 +5,7 @@ import (
 	"io"
 	"log/slog"
 	"strconv"
+	"strings"
 )
 
 func (s *Server) csvToMap(reader io.Reader) []map[string]string {
@@ -25,7 +26,7 @@ func (s *Server) csvToMap(reader io.Reader) []map[string]string {
 		} else {
 			dict := map[string]string{}
 			for i := range header {
-				dict[header[i]] = record[i]
+				dict[header[i]] = strings.TrimSpace(record[i])
 			}
 			rows = append(rows, dict)
 		}
