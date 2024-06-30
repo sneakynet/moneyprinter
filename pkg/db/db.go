@@ -39,5 +39,17 @@ func (db *DB) Migrate() error {
 	if err := db.d.AutoMigrate(&types.Line{}); err != nil {
 		return err
 	}
+
+	if err := db.d.AutoMigrate(&types.Switch{}); err != nil {
+		return err
+	}
+
+	if err := db.d.AutoMigrate(&types.Equipment{}); err != nil {
+		return err
+	}
+
+	if err := db.d.AutoMigrate(&types.Wirecenter{}); err != nil {
+		return err
+	}
 	return nil
 }

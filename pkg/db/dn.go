@@ -10,25 +10,17 @@ func (db *DB) DNCreate(dn *types.DN) (uint, error) {
 	return dn.ID, res.Error
 }
 
-// DNListByAccountID filters the list of DNs by account.
-func (db *DB) DNListByAccountID(acct uint) ([]types.DN, error) {
+// DNList filters the list of DNs by the provided instance.
+func (db *DB) DNList(filter *types.DN) ([]types.DN, error) {
 	dns := []types.DN{}
-	res := db.d.Where(&types.DN{AccountID: acct}).Find(&dns)
+	res := db.d.Where(filter).Find(&dns)
 	return dns, res.Error
 }
 
-// DNGet returns detailed information on a single DN by its numeric
-// ID.  The numeric ID is **not** the directory number.
-func (db *DB) DNGet(id uint) (types.DN, error) {
+// DNGet returns detailed information on a single DN selected by the
+// parameter in the filter instance.
+func (db *DB) DNGet(filter *types.DN) (types.DN, error) {
 	dn := types.DN{}
-	res := db.d.First(&dn, id)
-	return dn, res.Error
-}
-
-// DNGetByNumber fetches a DN by its number, which is not related to
-// its ID.
-func (db *DB) DNGetByNumber(n uint) (types.DN, error) {
-	dn := types.DN{}
-	res := db.d.Where(&types.DN{Number: n}).First(&dn)
+	res := db.d.Where(filter).First(&dn)
 	return dn, res.Error
 }

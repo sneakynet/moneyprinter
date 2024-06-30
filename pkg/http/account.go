@@ -20,7 +20,7 @@ func (s *Server) uiViewAccountBulkForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) uiViewAccountsList(w http.ResponseWriter, r *http.Request) {
-	accounts, err := s.d.AccountList()
+	accounts, err := s.d.AccountList(nil)
 	if err != nil {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
@@ -30,13 +30,13 @@ func (s *Server) uiViewAccountsList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) uiViewAccount(w http.ResponseWriter, r *http.Request) {
-	account, err := s.d.AccountGet(s.strToUint(chi.URLParam(r, "id")))
+	account, err := s.d.AccountGet(&types.Account{ID: s.strToUint(chi.URLParam(r, "id"))})
 	if err != nil {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
 
-	lines, err := s.d.LineListByAccountID(account.ID)
+	lines, err := s.d.LineList(&types.Line{AccountID: account.ID})
 	if err != nil {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
@@ -44,7 +44,7 @@ func (s *Server) uiViewAccount(w http.ResponseWriter, r *http.Request) {
 
 	ctx := pongo2.Context{
 		"account": account,
-		"lines": lines,
+		"lines":   lines,
 	}
 
 	s.doTemplate(w, r, "p2/views/account.p2", ctx)
@@ -74,72 +74,4 @@ func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Requ
 	}
 
 	http.Redirect(w, r, fmt.Sprintf("/ui/account/%d", id), http.StatusSeeOther)
-}
-
-func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	f, _, err := r.FormFile("accounts_file")
-	if err != nil {
-		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
-		return
-	}
-	defer f.Close()
-	records := s.csvToMap(f)
-
-	// Ideally we'd submit all these in a single batch to the
-	// database for efficiency, but this is easier to filter for
-	// dupes or CSV issues, and in reality the scale that
-	// moneyprinter is expected to see is fairly small, so the
-	// performance "gain" isn't worth the added complexity.
-	for _, record := range records {
-		if len(record["Name"]) == 0 {
-			continue
-		}
-
-		acct, err := s.d.AccountGetByName(record["Name"])
-		acctID := acct.ID
-		if err != nil {
-			slog.Warn("Error fetching account by name", "error", err)
-			acctID, err = s.d.AccountCreate(&types.Account{
-				Name:    record["Name"],
-				Contact: record["Contact"],
-				Alias:   record["Alias"],
-			})
-			if err != nil {
-				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
-				return
-			}
-		}
-
-		if _, err := s.d.DNGetByNumber(s.strToUint(record["DN"])); err != nil {
-			slog.Warn("Error fetching DN by number", "error", err)
-			slog.Debug("Want to create a line", "linetype", record["LINETYPE"])
-			if record["LINETYPE"] == "FXS-LOOP-START" {
-				lineID, err := s.d.LineCreate(&types.Line{
-					AccountID:  acctID,
-					Type:       record["LINETYPE"],
-					Switch:     record["SWITCH"],
-					Equipment:  record["EQUIPMENT"],
-					Wirecenter: record["WIRECENTER"],
-				})
-				if err != nil {
-					s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
-					return
-				}
-
-				_, err = s.d.DNCreate(&types.DN{
-					Number:    s.strToUint(record["DN"]),
-					Display:   record["CNAM"],
-					AccountID: acctID,
-					LineID:    lineID,
-				})
-				if err != nil {
-					s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
-					return
-				}
-			}
-		}
-	}
-
-	http.Redirect(w, r, "/ui/accounts", http.StatusSeeOther)
 }

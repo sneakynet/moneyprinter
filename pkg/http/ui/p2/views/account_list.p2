@@ -4,6 +4,8 @@
 
 {% block content %}
 <div>
+  <a href="/ui/accounts/bulk">Add Bulk</a>
+  <a href="/ui/accounts/new">Add Single</a>
   <table>
     <tr>
       <th>ID</th>

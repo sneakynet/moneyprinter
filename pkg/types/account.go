@@ -36,13 +36,46 @@ type DN struct {
 type Line struct {
 	ID uint
 
-	CircuitID  uint
-	AccountID  uint
-	Type       string
-	DNs        []DN
-	Switch     string
-	Equipment  string
-	Wirecenter string
+	CircuitID    uint
+	AccountID    uint
+	SwitchID     uint
+	EquipmentID  uint
+	WirecenterID uint
+	Type         string
+	DNs          []DN
+}
+
+// Wirecenter represents a single location to which wire comes back
+// to.  A central location if you will.
+type Wirecenter struct {
+	ID uint
+
+	Name string
+
+	Switches []Switch
+}
+
+// Switch represents a switch with some amount of capacity on it.
+type Switch struct {
+	ID uint
+
+	WirecenterID uint
+
+	Name string
+	Type string
+
+	Lines     []Line
+	Equipment []Equipment
+}
+
+// Equipment is used to serve lines and typically represents a port on
+// a switch
+type Equipment struct {
+	ID uint
+
+	SwitchID uint
+	Name     string
+	Port     string
 }
 
 // Circuit specifies a single connection that is paid for by an

@@ -7,6 +7,8 @@
   <p>Name: {{ account.Name }}</p>
   <p>Contact: {{ account.Contact }}</p>
   <p>Alias: {{ account.Alias }}</p>
+
+  <a href="/ui/lines/new?account={{ account.ID }}">Add Line</a>
   <table>
     <tr>
       <th>DN</th>
@@ -15,6 +17,7 @@
       <th>Switch</th>
       <th>Equipment</th>
       <th>Wirecenter</th>
+      <th>Actions</th>
     </tr>
     {% for line in lines %}
     {% for dn in line.DNs %}
@@ -25,6 +28,12 @@
       <td>{{ line.Switch }}</td>
       <td>{{ line.Equipment }}</td>
       <td>{{ line.Wirecenter }}</td>
+      <td>
+        <a href="/ui/lines/delete/{{ line.ID }}">Delete Line</a>
+        <a href="/ui/lines/edit/{{ line.ID }}">Edit Line</a>
+        <a href="/ui/dns/delete/{{ dn.ID }}">Delete DN</a>
+        <a href="/ui/dns/edit/{{ dn.ID }}">Edit DN</a>
+      </td>
     </tr>
     {% endfor %}
     {% endfor %}

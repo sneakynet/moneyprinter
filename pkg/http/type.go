@@ -25,16 +25,26 @@ type Option func(*Server)
 // to do.
 type DB interface {
 	AccountCreate(*types.Account) (uint, error)
-	AccountList() ([]types.Account, error)
-	AccountGet(uint) (types.Account, error)
-	AccountGetByName(string) (types.Account, error)
+	AccountList(*types.Account) ([]types.Account, error)
+	AccountGet(*types.Account) (types.Account, error)
 
 	LineCreate(*types.Line) (uint, error)
-	LineListByAccountID(uint) ([]types.Line, error)
-	LineGet(uint) (types.Line, error)
+	LineList(*types.Line) ([]types.Line, error)
+	LineGet(*types.Line) (types.Line, error)
 
 	DNCreate(*types.DN) (uint, error)
-	DNListByAccountID(uint) ([]types.DN, error)
-	DNGet(uint) (types.DN, error)
-	DNGetByNumber(uint) (types.DN, error)
+	DNList(*types.DN) ([]types.DN, error)
+	DNGet(*types.DN) (types.DN, error)
+
+	SwitchCreate(*types.Switch) (uint, error)
+	SwitchList(*types.Switch) ([]types.Switch, error)
+	SwitchGet(*types.Switch) (types.Switch, error)
+
+	EquipmentCreate(*types.Equipment) (uint, error)
+	EquipmentList(*types.Equipment) ([]types.Equipment, error)
+	EquipmentGet(*types.Equipment) (types.Equipment, error)
+
+	WirecenterCreate(*types.Wirecenter) (uint, error)
+	WirecenterList(*types.Wirecenter) ([]types.Wirecenter, error)
+	WirecenterGet(*types.Wirecenter) (types.Wirecenter, error)
 }
