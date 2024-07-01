@@ -21,6 +21,6 @@ func (db *DB) AccountList(filter *types.Account) ([]types.Account, error) {
 // AccountGet returns a single account identified by its specific ID
 func (db *DB) AccountGet(filter *types.Account) (types.Account, error) {
 	acct := types.Account{}
-	res := db.d.Preload("Lines").Where(filter).First(&acct)
+	res := db.d.Preload("Lines").Preload("DNs").Preload("Circuits").Where(filter).First(&acct)
 	return acct, res.Error
 }

@@ -15,9 +15,6 @@
       <th>DN</th>
       <th>CNAM</th>
       <th>Type</th>
-      <th>Switch</th>
-      <th>Equipment</th>
-      <th>Wirecenter</th>
       <th>Actions</th>
     </tr>
     {% for line in lines %}
@@ -27,15 +24,7 @@
       <td>{{ dn.Number }}</td>
       <td>{{ dn.Display }}</td>
       <td>{{ line.Type }}</td>
-      <td>{{ line.Switch }}</td>
-      <td>{{ line.Equipment }}</td>
-      <td>{{ line.Wirecenter }}</td>
-      <td>
-        <a href="/ui/lines/delete/{{ line.ID }}">Delete Line</a>
-        <a href="/ui/lines/edit/{{ line.ID }}">Edit Line</a>
-        <a href="/ui/dns/delete/{{ dn.ID }}">Delete DN</a>
-        <a href="/ui/dns/edit/{{ dn.ID }}">Edit DN</a>
-      </td>
+      <td></td>
     </tr>
     {% endfor %}
     {% endfor %}
