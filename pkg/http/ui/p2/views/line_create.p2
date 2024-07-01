@@ -13,14 +13,6 @@
     </select>
     <br />
 
-    <label for="line_type">Line Type</label>
-    <select name="line_type" {% if linetypes|length == 1 %}disabled{% endif %}>
-      {% for linetype, display in linetypes %}
-      <option value="{{ linetype }}">{{ display }}</option>
-      {% endfor %}
-    </select>
-    <br />
-
     <label for="line_serving_switch">Serving Switch</label>
     <select name="line_serving_switch" {% if switches|length == 1 %}disabled{% endif %}>
       {% for switch in switches %}
@@ -29,14 +21,26 @@
     </select>
     <br />
 
-    <label for="line_equipment">Line Equipment</label>
-    <input type="text" name="line_equipment" />
+    <label for="line_type">Line Type</label>
+    <select name="line_type" {% if linetypes|length == 1 %}disabled{% endif %}>
+      {% for linetype, display in linetypes %}
+      <option value="{{ linetype }}">{{ display }}</option>
+      {% endfor %}
+    </select>
     <br />
 
-    <label for="line_wirecenter">Wirecenter</label>
-    <select name="line_wirecenter" {% if wirecenters|length == 1 %}disabled{% endif %}>
-      {% for wirecenter in wirecenters %}
-      <option value="{{ wirecenter.ID }}">{{ wirecenter.Name }}</option>
+    <label for="line_equipment">Line Equipment</label>
+    <select name="line_equipment" {% if eNames|length == 1 %}disabled{% endif %}>
+      {% for name, id in eNames %}
+      <option value="{{ id }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+    <br />
+
+    <label for="line_port">Line Equipment Port</label>
+    <select name="line_port" {% if equipment|length == 1 %}disabled{% endif %}>
+      {% for e in equipment %}
+      <option value="{{ e.ID }}">{{ e.Port }}</option>
       {% endfor %}
     </select>
     <br />

@@ -62,10 +62,9 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 		sw, err := s.d.SwitchGet(&types.Switch{Name: record["SWITCH"]})
 		if err != nil {
 			swID, err := s.d.SwitchCreate(&types.Switch{
-				Name:         record["SWITCH"],
-				CLLI:         record["CLLI"],
-				Type:         record["SWITCHTYPE"],
-				WirecenterID: wc.ID,
+				Name: record["SWITCH"],
+				CLLI: record["CLLI"],
+				Type: record["SWITCHTYPE"],
 			})
 			if err != nil {
 				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
@@ -79,10 +78,11 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 			}
 		}
 
-		eqpmnt, err := s.d.EquipmentGet(&types.Equipment{Name: record["EQUIPMENT"]})
+		eqpmnt, err := s.d.EquipmentGet(&types.Equipment{Name: record["EQUIPMENT"], Port: record["PORT"]})
 		if err != nil {
 			eqpmntID, err := s.d.EquipmentCreate(&types.Equipment{
 				Name:         record["EQUIPMENT"],
+				Port:         record["PORT"],
 				SwitchID:     sw.ID,
 				WirecenterID: wc.ID,
 			})
@@ -103,11 +103,10 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 			slog.Debug("Want to create a line", "linetype", record["LINETYPE"])
 			if record["LINETYPE"] == "FXS-LOOP-START" {
 				lineID, err := s.d.LineCreate(&types.Line{
-					AccountID:    acctID,
-					Type:         record["LINETYPE"],
-					WirecenterID: wc.ID,
-					SwitchID:     sw.ID,
-					EquipmentID:  eqpmnt.ID,
+					AccountID:   acctID,
+					Type:        record["LINETYPE"],
+					SwitchID:    sw.ID,
+					EquipmentID: eqpmnt.ID,
 				})
 				if err != nil {
 					s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})

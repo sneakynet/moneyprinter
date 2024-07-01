@@ -11,7 +11,7 @@ import (
 func (s *Server) uiViewLineCreateForm(w http.ResponseWriter, r *http.Request) {
 	accountID := s.strToUint(r.URL.Query().Get("account"))
 	switchID := s.strToUint(r.URL.Query().Get("switch"))
-	wirecenterID := s.strToUint(r.URL.Query().Get("wirecenter"))
+	equipmentID := s.strToUint(r.URL.Query().Get("equipment"))
 
 	var accounts = []types.Account{{ID: accountID}}
 	if accountID == 0 {
@@ -47,28 +47,33 @@ func (s *Server) uiViewLineCreateForm(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	wirecenters := []types.Wirecenter{{ID: wirecenterID}}
-	if wirecenterID == 0 {
+	equipment := []types.Equipment{{ID: equipmentID}}
+	if equipmentID == 0 {
 		var err error
-		wirecenters, err = s.d.WirecenterList(nil)
+		equipment, err = s.d.EquipmentList(nil)
 		if err != nil {
 			s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 			return
 		}
 	} else {
 		var err error
-		wirecenters, err = s.d.WirecenterList(&types.Wirecenter{ID: wirecenterID})
+		equipment, err = s.d.EquipmentList(&types.Equipment{ID: equipmentID})
 		if err != nil {
 			s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 			return
 		}
 	}
+	eNames := map[string]uint{}
+	for _, eqpmnt := range equipment {
+		eNames[eqpmnt.Name] = eqpmnt.ID
+	}
 
 	ctx := pongo2.Context{
-		"accounts": accounts,
-		"switches": switches,
-		"wirecenters": wirecenters,
+		"accounts":  accounts,
+		"switches":  switches,
 		"linetypes": map[string]string{"FXS-LOOP-START": "FXS Loop Start"},
+		"eNames":    eNames,
+		"equipment": equipment,
 	}
 
 	s.doTemplate(w, r, "p2/views/line_create.p2", ctx)

@@ -36,13 +36,12 @@ type DN struct {
 type Line struct {
 	ID uint
 
-	CircuitID    uint
-	AccountID    uint
-	SwitchID     uint
-	EquipmentID  uint
-	WirecenterID uint
-	Type         string
-	DNs          []DN
+	CircuitID   uint
+	AccountID   uint
+	SwitchID    uint
+	EquipmentID uint
+	Type        string
+	DNs         []DN
 }
 
 // Wirecenter represents a single location to which wire comes back
@@ -50,16 +49,13 @@ type Line struct {
 type Wirecenter struct {
 	ID uint
 
-	Name string
-
-	Switches []Switch
+	Name      string
+	Equipment []Equipment
 }
 
 // Switch represents a switch with some amount of capacity on it.
 type Switch struct {
 	ID uint
-
-	WirecenterID uint
 
 	Name string
 	CLLI string
