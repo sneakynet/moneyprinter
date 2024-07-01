@@ -11,6 +11,7 @@
   <a href="/ui/lines/new?account={{ account.ID }}">Add Line</a>
   <table>
     <tr>
+      <th>ID</th>
       <th>DN</th>
       <th>CNAM</th>
       <th>Type</th>
@@ -22,6 +23,7 @@
     {% for line in lines %}
     {% for dn in line.DNs %}
     <tr>
+      <td>{{ line.ID }}</td>
       <td>{{ dn.Number }}</td>
       <td>{{ dn.Display }}</td>
       <td>{{ line.Type }}</td>

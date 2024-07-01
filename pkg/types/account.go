@@ -62,6 +62,7 @@ type Switch struct {
 	WirecenterID uint
 
 	Name string
+	CLLI string
 	Type string
 
 	Lines     []Line
@@ -73,9 +74,10 @@ type Switch struct {
 type Equipment struct {
 	ID uint
 
-	SwitchID uint
-	Name     string
-	Port     string
+	SwitchID     uint
+	WirecenterID uint
+	Name         string
+	Port         string
 }
 
 // Circuit specifies a single connection that is paid for by an

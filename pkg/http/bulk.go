@@ -63,6 +63,8 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 		if err != nil {
 			swID, err := s.d.SwitchCreate(&types.Switch{
 				Name:         record["SWITCH"],
+				CLLI:         record["CLLI"],
+				Type:         record["SWITCHTYPE"],
 				WirecenterID: wc.ID,
 			})
 			if err != nil {
@@ -80,8 +82,9 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 		eqpmnt, err := s.d.EquipmentGet(&types.Equipment{Name: record["EQUIPMENT"]})
 		if err != nil {
 			eqpmntID, err := s.d.EquipmentCreate(&types.Equipment{
-				Name:     record["EQUIPMENT"],
-				SwitchID: sw.ID,
+				Name:         record["EQUIPMENT"],
+				SwitchID:     sw.ID,
+				WirecenterID: wc.ID,
 			})
 			if err != nil {
 				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})

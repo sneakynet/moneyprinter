@@ -14,13 +14,19 @@
     <br />
 
     <label for="line_type">Line Type</label>
-    <select name="line_type">
-      <option value="FXS-LOOP-START">FXS Loop Start</option>
+    <select name="line_type" {% if linetypes|length == 1 %}disabled{% endif %}>
+      {% for linetype, display in linetypes %}
+      <option value="{{ linetype }}">{{ display }}</option>
+      {% endfor %}
     </select>
     <br />
 
     <label for="line_serving_switch">Serving Switch</label>
-    <input type="text" name="line_serving_switch" />
+    <select name="line_serving_switch" {% if switches|length == 1 %}disabled{% endif %}>
+      {% for switch in switches %}
+      <option value="{{ switch.ID }}">{{ switch.Name }}</option>
+      {% endfor %}
+    </select>
     <br />
 
     <label for="line_equipment">Line Equipment</label>
@@ -28,7 +34,11 @@
     <br />
 
     <label for="line_wirecenter">Wirecenter</label>
-    <input type="text" name="line_wirecenter" />
+    <select name="line_wirecenter" {% if wirecenters|length == 1 %}disabled{% endif %}>
+      {% for wirecenter in wirecenters %}
+      <option value="{{ wirecenter.ID }}">{{ wirecenter.Name }}</option>
+      {% endfor %}
+    </select>
     <br />
 
     <input type="submit" />
