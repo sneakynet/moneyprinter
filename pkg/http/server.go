@@ -36,6 +36,8 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Post("/ui/accounts/bulk", s.uiHandleAccountCreateBulk)
 	s.r.Get("/ui/account/{id}", s.uiViewAccount)
 
+	s.r.Post("/api/cdr", s.apiCreateCDR)
+
 	return s, nil
 }
 

@@ -51,5 +51,9 @@ func (db *DB) Migrate() error {
 	if err := db.d.AutoMigrate(&types.Wirecenter{}); err != nil {
 		return err
 	}
+
+	if err := db.d.AutoMigrate(&types.CDR{}); err != nil {
+		return err
+	}
 	return nil
 }
