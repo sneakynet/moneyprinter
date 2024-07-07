@@ -13,12 +13,26 @@ import (
 func (s *Server) uiViewCDRs(w http.ResponseWriter, r *http.Request) {
 	cdrs := []types.CDR{}
 
-	if dn := r.URL.Query().Get("dn"); dn != "" {
-		s1, _ := s.d.CDRList(&types.CDR{CLID: s.strToUint(dn)})
-		cdrs = append(cdrs, s1...)
+	q := r.URL.Query()
 
-		s2, _ := s.d.CDRList(&types.CDR{DNIS: s.strToUint(dn)})
-		cdrs = append(cdrs, s2...)
+	if dn := q.Get("dn"); dn != "" {
+		q.Set("dnis", dn)
+		q.Set("clid", dn)
+	}
+
+	if dnis := q.Get("dnis"); dnis != "" {
+		s1, _ := s.d.CDRList(&types.CDR{DNIS: s.strToUint(dnis)})
+		cdrs = append(cdrs, s1...)
+	}
+
+	if clid := q.Get("clid"); clid != "" {
+		s1, _ := s.d.CDRList(&types.CDR{CLID: s.strToUint(clid)})
+		cdrs = append(cdrs, s1...)
+	}
+
+	if clli := q.Get("ccli"); clli != "" {
+		s1, _ := s.d.CDRList(&types.CDR{CLLI: clli})
+		cdrs = append(cdrs, s1...)
 	}
 
 	sort.Slice(cdrs, func(i, j int) bool {
