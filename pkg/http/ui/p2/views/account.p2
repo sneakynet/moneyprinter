@@ -24,7 +24,9 @@
       <td>{{ dn.Number }}</td>
       <td>{{ dn.Display }}</td>
       <td>{{ line.Type }}</td>
-      <td></td>
+      <td>
+        <a href="/ui/cdrs?dn={{ dn.Number }}">CDRs</a>
+      </td>
     </tr>
     {% endfor %}
     {% endfor %}

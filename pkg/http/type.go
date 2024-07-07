@@ -49,4 +49,6 @@ type DB interface {
 	WirecenterGet(*types.Wirecenter) (types.Wirecenter, error)
 
 	CDRCreate(*types.CDR) (uint, error)
+	CDRList(*types.CDR) ([]types.CDR, error)
+	CDRGet(*types.CDR) (types.CDR, error)
 }
