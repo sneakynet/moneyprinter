@@ -38,11 +38,14 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Post("/ui/accounts/bulk", s.uiHandleAccountCreateBulk)
 	s.r.Get("/ui/account/{id}", s.uiViewAccount)
 	s.r.Get("/ui/account/{id}/bill", s.uiViewAccountBill)
+
 	s.r.Get("/ui/cdrs", s.uiViewCDRs)
 
 	s.r.Get("/ui/fees", s.uiViewFeeList)
 	s.r.Get("/ui/fees/new", s.uiViewFeeCreate)
-	s.r.Post("/ui/fees/new", s.uiViewFeeCreatePost)
+	s.r.Post("/ui/fees/new", s.uiViewFeeUpsertPost)
+	s.r.Get("/ui/fees/{id}/edit", s.uiViewFeeEditForm)
+	s.r.Post("/ui/fees/{id}/edit", s.uiViewFeeUpsertPost)
 
 	s.r.Post("/api/cdr", s.apiCreateCDR)
 

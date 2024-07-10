@@ -4,9 +4,9 @@ import (
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
-// FeeCreate stores a new fee into the system.
-func (db *DB) FeeCreate(f *types.Fee) (uint, error) {
-	res := db.d.Create(f)
+// FeeSave stores a new fee into the system.
+func (db *DB) FeeSave(f *types.Fee) (uint, error) {
+	res := db.d.Save(f)
 	return f.ID, res.Error
 }
 

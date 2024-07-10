@@ -54,7 +54,7 @@ type DB interface {
 	CDRList(*types.CDR) ([]types.CDR, error)
 	CDRGet(*types.CDR) (types.CDR, error)
 
-	FeeCreate(*types.Fee) (uint, error)
+	FeeSave(*types.Fee) (uint, error)
 	FeeList(*types.Fee) ([]types.Fee, error)
 	FeeGet(*types.Fee) (types.Fee, error)
 	FeeDelete(*types.Fee) error
