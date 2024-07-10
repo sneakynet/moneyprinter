@@ -18,10 +18,10 @@
     <tr>
       <td>{{ line.Item }}</td>
       <td>{{ line.Fee }}</td>
-      <td>{{ line.Cost }}</td>
+      <td>{{ line.Cost|money }}</td>
     </tr>
     {% endfor %}
   </table>
-  <p>Grand Total: {{ bill.Cost() }}</p>
+  <p>Grand Total: {{ bill.Cost()|money }}</p>
 </div>
 {% endblock %}

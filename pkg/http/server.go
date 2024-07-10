@@ -24,6 +24,8 @@ func New(opts ...Option) (*Server, error) {
 		o(s)
 	}
 
+	pongo2.RegisterFilter("money", s.filterFormatMoney)
+
 	s.r.Use(middleware.Heartbeat("/ping"))
 	s.r.Use(middleware.Logger)
 
