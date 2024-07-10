@@ -76,3 +76,13 @@ func (s *Server) uiViewFeeList(w http.ResponseWriter, r *http.Request) {
 
 	s.doTemplate(w, r, "p2/views/fee_list.p2", pongo2.Context{"fees": fees})
 }
+
+func (s *Server) uiViewFeeDelete(w http.ResponseWriter, r *http.Request) {
+	fID := s.strToUint(chi.URLParam(r, "id"))
+
+	if err := s.d.FeeDelete(&types.Fee{ID: fID}); err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+	http.Redirect(w, r, "/ui/fees", http.StatusSeeOther)
+}

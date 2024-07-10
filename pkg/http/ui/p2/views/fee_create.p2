@@ -1,6 +1,6 @@
 {% extends "../base.p2" %}
 
-{% block title %}{{ fee|yesno:"Edit,Create" }} Fee{% endblock %}
+{% block title %}{{ fee|yesno:"Edit,Create,Create" }} Fee{% endblock %}
 
 {% block content %}
 <div>

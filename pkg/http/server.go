@@ -46,6 +46,7 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Post("/ui/fees/new", s.uiViewFeeUpsertPost)
 	s.r.Get("/ui/fees/{id}/edit", s.uiViewFeeEditForm)
 	s.r.Post("/ui/fees/{id}/edit", s.uiViewFeeUpsertPost)
+	s.r.Post("/ui/fees/{id}/delete", s.uiViewFeeDelete)
 
 	s.r.Post("/api/cdr", s.apiCreateCDR)
 

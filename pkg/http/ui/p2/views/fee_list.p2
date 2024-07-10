@@ -4,12 +4,15 @@
 
 {% block content %}
 <div>
+  <a href="/ui/fees/new">Create New Fee</a>
+
   <table>
     <tr>
       <th>Name</th>
       <th>Type</th>
       <th>Applies To</th>
       <th>Expression</th>
+      <th>Actions<th>
     </tr>
     {% for fee in fees %}
     <tr>
@@ -17,6 +20,10 @@
       <td>{{ fee.Type }}</td>
       <td>{{ fee.AppliesTo }}</td>
       <td>{{ fee.Expression }}</td>
+      <td>
+        <form action="/ui/fees/{{ fee.ID }}/edit"><input type="submit" value="Edit" /></form>
+        <form action="/ui/fees/{{ fee.ID }}/delete" method="POST"><input type="submit" value="Delete" /></form>
+      </td>
     </tr>
     {% endfor %}
   </table>
