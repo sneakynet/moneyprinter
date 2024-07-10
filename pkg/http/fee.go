@@ -1,7 +1,6 @@
 package http
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/flosch/pongo2/v5"
@@ -30,31 +29,22 @@ func (s *Server) uiViewFeeCreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fName := r.FormValue("fee_name")
-	fType := r.FormValue("fee_type")
 	fApply := r.FormValue("apply_to")
-	fParam := r.FormValue("param")
+	fExpression := r.FormValue("fee_expression")
 
 	fee := types.Fee{
-		Name:      fName,
-		AppliesTo: fApply,
+		Name:       fName,
+		AppliesTo:  fApply,
+		Expression: fExpression,
 	}
 
-	switch fType {
-	case "static":
-		fee.Type = types.StaticFee
-		fee.StaticCost = s.strToUint(fParam)
-	case "dynamic":
-		fee.Type = types.DynamicFee
-		fee.DynamicExpr = fParam
-	}
-
-	id, err := s.d.FeeCreate(&fee)
+	_, err := s.d.FeeCreate(&fee)
 	if err != nil {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/ui/fees/%d", id), http.StatusSeeOther)
+	http.Redirect(w, r, "/ui/fees", http.StatusSeeOther)
 }
 
 func (s *Server) uiViewFeeList(w http.ResponseWriter, r *http.Request) {

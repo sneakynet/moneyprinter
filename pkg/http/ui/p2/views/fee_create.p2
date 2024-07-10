@@ -9,13 +9,6 @@
     <input name="fee_name" type="text" />
     <br />
 
-    <label for="fee_type">Charge Type:</label>
-    <select name="fee_type">
-      <option value="static">Static</option>
-      <option value="dynamic">Dynamic</option>
-    </select>
-    <br />
-
     <label for="apply_to">Billed Item:</label>
     <select name="apply_to">
       {% for item, display in BillableItems %}
@@ -24,8 +17,8 @@
     </select>
     <br />
 
-    <label for="param">Fee Paramter</label>
-    <input name="param" type="text" />
+    <label for="fee_expression">Expression</label>
+    <input name="fee_expression" type="text" />
     <br />
 
     <input type="submit" />

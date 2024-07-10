@@ -31,17 +31,11 @@ func (p *Processor) Preload() error {
 	p.fees = make(map[string][]Fee)
 
 	for _, fee := range srcFees {
-		switch fee.Type {
-		case types.StaticFee:
-			newFee := NewStaticFee(fee.StaticCost, fee.Name)
-			p.fees[fee.AppliesTo] = append(p.fees[fee.AppliesTo], newFee)
-		case types.DynamicFee:
-			newFee, err := NewDynamicFee(fee.Name, fee.DynamicExpr)
-			if err != nil {
-				continue
-			}
-			p.fees[fee.AppliesTo] = append(p.fees[fee.AppliesTo], newFee)
+		newFee, err := NewDynamicFee(fee.Name, fee.Expression)
+		if err != nil {
+			continue
 		}
+		p.fees[fee.AppliesTo] = append(p.fees[fee.AppliesTo], newFee)
 	}
 
 	return nil

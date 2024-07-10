@@ -9,16 +9,14 @@
       <th>Name</th>
       <th>Type</th>
       <th>Applies To</th>
-      <th>Static Cost</th>
-      <th>Dynamic Expression</th>
+      <th>Expression</th>
     </tr>
     {% for fee in fees %}
     <tr>
       <td>{{ fee.Name }}</td>
       <td>{{ fee.Type }}</td>
       <td>{{ fee.AppliesTo }}</td>
-      <td>{{ fee.StaticCost }}</td>
-      <td>{{ fee.DynamicExpr }}</td>
+      <td>{{ fee.Expression }}</td>
     </tr>
     {% endfor %}
   </table>
