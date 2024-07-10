@@ -6,14 +6,16 @@ import (
 	"github.com/flosch/pongo2/v5"
 	"github.com/go-chi/chi/v5"
 
+	"github.com/sneakynet/moneyprinter/pkg/bill"
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
 // Server handles the HTTP frontend of the application.
 type Server struct {
-	r chi.Router
-	n *http.Server
-	d DB
+	r  chi.Router
+	n  *http.Server
+	d  DB
+	bp BillProcessor
 
 	tpl *pongo2.TemplateSet
 }
@@ -51,4 +53,15 @@ type DB interface {
 	CDRCreate(*types.CDR) (uint, error)
 	CDRList(*types.CDR) ([]types.CDR, error)
 	CDRGet(*types.CDR) (types.CDR, error)
+
+	FeeCreate(*types.Fee) (uint, error)
+	FeeList(*types.Fee) ([]types.Fee, error)
+	FeeGet(*types.Fee) (types.Fee, error)
+	FeeDelete(*types.Fee) error
+}
+
+// BillProcessor actually generates and returns bills.
+type BillProcessor interface {
+	Preload() error
+	BillAccount(types.Account) (bill.Bill, error)
 }

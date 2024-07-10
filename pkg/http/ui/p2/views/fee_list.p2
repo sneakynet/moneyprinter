@@ -1,0 +1,26 @@
+{% extends "../base.p2" %}
+
+{% block title %}Fees{% endblock %}
+
+{% block content %}
+<div>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Applies To</th>
+      <th>Static Cost</th>
+      <th>Dynamic Expression</th>
+    </tr>
+    {% for fee in fees %}
+    <tr>
+      <td>{{ fee.Name }}</td>
+      <td>{{ fee.Type }}</td>
+      <td>{{ fee.AppliesTo }}</td>
+      <td>{{ fee.StaticCost }}</td>
+      <td>{{ fee.DynamicExpr }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

@@ -24,36 +24,21 @@ func (db *DB) Connect(file string) error {
 
 // Migrate reconciles the database schema with the
 func (db *DB) Migrate() error {
-	if err := db.d.AutoMigrate(&types.Account{}); err != nil {
+	tables := []interface{}{
+		&types.Account{},
+		&types.Circuit{},
+		&types.DN{},
+		&types.Line{},
+		&types.Switch{},
+		&types.Equipment{},
+		&types.Wirecenter{},
+		&types.CDR{},
+		&types.Fee{},
+	}
+
+	if err := db.d.AutoMigrate(tables...); err != nil {
 		return err
 	}
 
-	if err := db.d.AutoMigrate(&types.Circuit{}); err != nil {
-		return err
-	}
-
-	if err := db.d.AutoMigrate(&types.DN{}); err != nil {
-		return err
-	}
-
-	if err := db.d.AutoMigrate(&types.Line{}); err != nil {
-		return err
-	}
-
-	if err := db.d.AutoMigrate(&types.Switch{}); err != nil {
-		return err
-	}
-
-	if err := db.d.AutoMigrate(&types.Equipment{}); err != nil {
-		return err
-	}
-
-	if err := db.d.AutoMigrate(&types.Wirecenter{}); err != nil {
-		return err
-	}
-
-	if err := db.d.AutoMigrate(&types.CDR{}); err != nil {
-		return err
-	}
 	return nil
 }

@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/sneakynet/moneyprinter/pkg/bill"
 	"github.com/sneakynet/moneyprinter/pkg/db"
 	"github.com/sneakynet/moneyprinter/pkg/http"
 )
@@ -35,7 +36,9 @@ func main() {
 		return
 	}
 
-	s, err := http.New(http.WithDB(db))
+	bp := bill.NewProcessor(bill.WithDatabase(db))
+
+	s, err := http.New(http.WithDB(db), http.WithBillProcessor(bp))
 	if err != nil {
 		slog.Error("Error creating webserver", "error", err)
 		return

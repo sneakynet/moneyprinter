@@ -75,3 +75,23 @@ func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Requ
 
 	http.Redirect(w, r, fmt.Sprintf("/ui/account/%d", id), http.StatusSeeOther)
 }
+
+func (s *Server) uiViewAccountBill(w http.ResponseWriter, r *http.Request) {
+	if err := s.bp.Preload(); err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	account, err := s.d.AccountGet(&types.Account{ID: s.strToUint(chi.URLParam(r, "id"))})
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	bill, err := s.bp.BillAccount(account)
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+	s.doTemplate(w, r, "p2/views/account_bill.p2", pongo2.Context{"account": account, "bill": bill})
+}
