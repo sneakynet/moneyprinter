@@ -56,6 +56,9 @@ func (p *Processor) BillAccount(ac types.Account) (Bill, error) {
 	for _, fee := range p.fees["account"] {
 		l := fee.Evaluate(fctx)
 		l.Item = ac.BillText()
+		if l.Cost == 0 {
+			continue
+		}
 		b.Lines = append(b.Lines, l)
 	}
 
@@ -71,6 +74,9 @@ func (p *Processor) BillAccount(ac types.Account) (Bill, error) {
 			fctx.Line = line
 			l := fee.Evaluate(fctx)
 			l.Item = line.BillText()
+			if l.Cost == 0 {
+				continue
+			}
 			b.Lines = append(b.Lines, l)
 		}
 	}
@@ -88,6 +94,9 @@ func (p *Processor) BillAccount(ac types.Account) (Bill, error) {
 			fctx.Circuit = circuit
 			l := fee.Evaluate(fctx)
 			l.Item = circuit.BillText()
+			if l.Cost == 0 {
+				continue
+			}
 			b.Lines = append(b.Lines, l)
 		}
 	}
@@ -107,6 +116,9 @@ func (p *Processor) BillAccount(ac types.Account) (Bill, error) {
 			fctx.DN = dn
 			l := fee.Evaluate(fctx)
 			l.Item = dn.BillText()
+			if l.Cost == 0 {
+				continue
+			}
 			b.Lines = append(b.Lines, l)
 		}
 
@@ -121,6 +133,9 @@ func (p *Processor) BillAccount(ac types.Account) (Bill, error) {
 				fctx.CDR = cdr
 				l := fee.Evaluate(fctx)
 				l.Item = cdr.BillText()
+				if l.Cost == 0 {
+					continue
+				}
 				b.Lines = append(b.Lines, l)
 			}
 		}
