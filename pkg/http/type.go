@@ -38,9 +38,10 @@ type DB interface {
 	DNList(*types.DN) ([]types.DN, error)
 	DNGet(*types.DN) (types.DN, error)
 
-	SwitchCreate(*types.Switch) (uint, error)
+	SwitchSave(*types.Switch) (uint, error)
 	SwitchList(*types.Switch) ([]types.Switch, error)
 	SwitchGet(*types.Switch) (types.Switch, error)
+	SwitchDelete(*types.Switch) error
 
 	EquipmentCreate(*types.Equipment) (uint, error)
 	EquipmentList(*types.Equipment) ([]types.Equipment, error)

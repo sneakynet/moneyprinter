@@ -61,7 +61,7 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 
 		sw, err := s.d.SwitchGet(&types.Switch{Name: record["SWITCH"]})
 		if err != nil {
-			swID, err := s.d.SwitchCreate(&types.Switch{
+			swID, err := s.d.SwitchSave(&types.Switch{
 				Name: record["SWITCH"],
 				CLLI: record["CLLI"],
 				Type: record["SWITCHTYPE"],
