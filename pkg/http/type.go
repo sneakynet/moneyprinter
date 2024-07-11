@@ -47,9 +47,10 @@ type DB interface {
 	EquipmentList(*types.Equipment) ([]types.Equipment, error)
 	EquipmentGet(*types.Equipment) (types.Equipment, error)
 
-	WirecenterCreate(*types.Wirecenter) (uint, error)
+	WirecenterSave(*types.Wirecenter) (uint, error)
 	WirecenterList(*types.Wirecenter) ([]types.Wirecenter, error)
 	WirecenterGet(*types.Wirecenter) (types.Wirecenter, error)
+	WirecenterDelete(*types.Wirecenter) error
 
 	CDRCreate(*types.CDR) (uint, error)
 	CDRList(*types.CDR) ([]types.CDR, error)

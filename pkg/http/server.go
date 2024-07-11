@@ -49,10 +49,18 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Post("/ui/fees/{id}/delete", s.uiViewFeeDelete)
 
 	s.r.Get("/ui/switches", s.uiViewSwitchList)
-	s.r.Post("/ui/switches", s.uiViewSwitchUpsert)
 	s.r.Get("/ui/switches/new", s.uiViewSwitchFormCreate)
+	s.r.Post("/ui/switches/new", s.uiViewSwitchUpsert)
 	s.r.Get("/ui/switches/{id}/edit", s.uiViewSwitchFormEdit)
+	s.r.Post("/ui/switches/{id}/edit", s.uiViewSwitchUpsert)
 	s.r.Get("/ui/switches/{id}/delete", s.uiViewSwitchDelete)
+
+	s.r.Get("/ui/wirecenters", s.uiViewWirecenterList)
+	s.r.Get("/ui/wirecenters/new", s.uiViewWirecenterFormCreate)
+	s.r.Post("/ui/wirecenters/new", s.uiViewWirecenterUpsert)
+	s.r.Get("/ui/wirecenters/{id}/edit", s.uiViewWirecenterFormEdit)
+	s.r.Post("/ui/wirecenters/{id}/edit", s.uiViewWirecenterUpsert)
+	s.r.Get("/ui/wirecenters/{id}/delete", s.uiViewWirecenterDelete)
 
 	s.r.Post("/api/cdr", s.apiCreateCDR)
 

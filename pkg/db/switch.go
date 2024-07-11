@@ -6,7 +6,7 @@ import (
 
 // SwitchSave persists a switch into the database.
 func (db *DB) SwitchSave(sw *types.Switch) (uint, error) {
-	res := db.d.Create(sw)
+	res := db.d.Save(sw)
 	return sw.ID, res.Error
 }
 

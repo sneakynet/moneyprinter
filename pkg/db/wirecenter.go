@@ -4,10 +4,9 @@ import (
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
-// WirecenterCreate sets up a brand new Wirecenter that sits on top of
-// a line.
-func (db *DB) WirecenterCreate(wc *types.Wirecenter) (uint, error) {
-	res := db.d.Create(wc)
+// WirecenterSave persists a wirecenter to the database.
+func (db *DB) WirecenterSave(wc *types.Wirecenter) (uint, error) {
+	res := db.d.Save(wc)
 	return wc.ID, res.Error
 }
 
@@ -25,4 +24,10 @@ func (db *DB) WirecenterGet(filter *types.Wirecenter) (types.Wirecenter, error) 
 	wc := types.Wirecenter{}
 	res := db.d.Where(filter).First(&wc)
 	return wc, res.Error
+}
+
+// WirecenterDelete removes a wirecenter.
+func (db *DB) WirecenterDelete(wc *types.Wirecenter) error {
+	res := db.d.Delete(wc)
+	return res.Error
 }

@@ -46,7 +46,7 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 
 		wc, err := s.d.WirecenterGet(&types.Wirecenter{Name: record["WIRECENTER"]})
 		if err != nil {
-			wcID, err := s.d.WirecenterCreate(&types.Wirecenter{Name: record["WIRECENTER"]})
+			wcID, err := s.d.WirecenterSave(&types.Wirecenter{Name: record["WIRECENTER"]})
 			if err != nil {
 				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 				return

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div>
-  <form method="POST" action="/ui/switches">
+  <form method="POST">
     <label for="switch_name">Name:</label>
     <input name="switch_name" type="text" value="{{ switch.Name }}" />
     <br />
