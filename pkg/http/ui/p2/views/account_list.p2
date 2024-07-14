@@ -21,7 +21,7 @@
       <td>{{ account.Contact }}</td>
       <td>{{ account.Alias }}</td>
       <td>
-        <a href="/ui/account/{{ account.ID }}">Detail</a>
+        <a href="/ui/accounts/{{ account.ID }}">Detail</a>
       </td>
     </tr>
     {% empty %}

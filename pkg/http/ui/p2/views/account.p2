@@ -8,7 +8,6 @@
   <p>Contact: {{ account.Contact }}</p>
   <p>Alias: {{ account.Alias }}</p>
 
-  <a href="/ui/lines/new?account={{ account.ID }}">Add Line</a>
   <table>
     <tr>
       <th>ID</th>
