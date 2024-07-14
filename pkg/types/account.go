@@ -73,6 +73,7 @@ type Equipment struct {
 	SwitchID     uint
 	WirecenterID uint
 	Name         string
+	Description  string
 	Port         string
 }
 

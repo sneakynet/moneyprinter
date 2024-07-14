@@ -43,9 +43,10 @@ type DB interface {
 	SwitchGet(*types.Switch) (types.Switch, error)
 	SwitchDelete(*types.Switch) error
 
-	EquipmentCreate(*types.Equipment) (uint, error)
+	EquipmentSave(*types.Equipment) (uint, error)
 	EquipmentList(*types.Equipment) ([]types.Equipment, error)
 	EquipmentGet(*types.Equipment) (types.Equipment, error)
+	EquipmentDelete(*types.Equipment) error
 
 	WirecenterSave(*types.Wirecenter) (uint, error)
 	WirecenterList(*types.Wirecenter) ([]types.Wirecenter, error)

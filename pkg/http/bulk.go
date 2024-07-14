@@ -80,7 +80,7 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 
 		eqpmnt, err := s.d.EquipmentGet(&types.Equipment{Name: record["EQUIPMENT"], Port: record["PORT"]})
 		if err != nil {
-			eqpmntID, err := s.d.EquipmentCreate(&types.Equipment{
+			eqpmntID, err := s.d.EquipmentSave(&types.Equipment{
 				Name:         record["EQUIPMENT"],
 				Port:         record["PORT"],
 				SwitchID:     sw.ID,

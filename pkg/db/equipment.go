@@ -4,9 +4,9 @@ import (
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
-// EquipmentCreate sets up a brand new Equipment.
-func (db *DB) EquipmentCreate(eqpmnt *types.Equipment) (uint, error) {
-	res := db.d.Create(eqpmnt)
+// EquipmentSave sets up a brand new Equipment.
+func (db *DB) EquipmentSave(eqpmnt *types.Equipment) (uint, error) {
+	res := db.d.Save(eqpmnt)
 	return eqpmnt.ID, res.Error
 }
 
@@ -24,4 +24,9 @@ func (db *DB) EquipmentGet(filter *types.Equipment) (types.Equipment, error) {
 	eqpmnt := types.Equipment{}
 	res := db.d.Where(filter).First(&eqpmnt)
 	return eqpmnt, res.Error
+}
+
+// EquipmentDelete removes a specific equipment specified by its ID.
+func (db *DB) EquipmentDelete(e *types.Equipment) error {
+	return db.d.Delete(e).Error
 }

@@ -13,21 +13,14 @@
       <th>Type</th>
       <th>Lines</th>
       <th>Equipments</th>
-      <th>Actions</th>
     </tr>
-    {% for switch in switches %}
     <tr>
       <td><a href="/ui/switches/{{ switch.ID }}">{{ switch.Name }}</a></td>
       <td>{{ switch.CLLI }}</td>
       <td>{{ switch.Type }}</td>
       <td>{{ switch.Lines|length }}</td>
       <td><a href="/ui/switches/{{ switch.ID }}/equipment">{{ switch.Equipment|length }}</a></td>
-      <td>
-        <form action="/ui/switches/{{ switch.ID }}/edit"><input type="submit" value="Edit" /></form>
-        <form method="POST" action="/ui/switches/{{ switch.ID }}/delete"><input type="submit" value="Delete" /></form>
-      </td>
     </tr>
-    {% endfor %}
   </table>
 </div>
 {% endblock %}

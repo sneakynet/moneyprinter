@@ -21,7 +21,7 @@ func (db *DB) SwitchList(filter *types.Switch) ([]types.Switch, error) {
 // by the parameter in the filter instance.
 func (db *DB) SwitchGet(filter *types.Switch) (types.Switch, error) {
 	sw := types.Switch{}
-	res := db.d.Where(filter).First(&sw)
+	res := db.d.Preload("Lines").Preload("Equipment").Where(filter).First(&sw)
 	return sw, res.Error
 }
 
