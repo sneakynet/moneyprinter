@@ -1,0 +1,17 @@
+{% extends "../base.p2" %}
+
+{% block title %}MoneyPrinter Home{% endblock %}
+
+{% block content %}
+<div>
+  <h1>Welcome to MoneyPrinter</h1>
+
+  <p>Actions:</p>
+  <ul>
+    <li><a href="/ui/accounts">Manage Accounts</a></li>
+    <li><a href="/ui/switches">Manage Switches</a></li>
+    <li><a href="/ui/wirecenters">Manage Wirenters</a></li>
+    <li><a href="/ui/fees">Manage Fees</a></li>
+  </ul>
+</div>
+{% endblock %}

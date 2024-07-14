@@ -31,6 +31,11 @@ func New(opts ...Option) (*Server, error) {
 
 	s.r.Handle("/static/*", http.FileServer(http.FS(sub)))
 
+	s.r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/ui", http.StatusSeeOther)
+	})
+	s.r.Get("/ui", s.uiViewLanding)
+
 	s.r.Route("/ui/accounts", func(r chi.Router) {
 		r.Get("/", s.uiViewAccountsList)
 		r.Post("/", s.uiHandleAccountCreateSingle)
@@ -98,4 +103,8 @@ func (s *Server) Serve(bind string) error {
 // Shutdown gracefully shuts down the server.
 func (s *Server) Shutdown(ctx context.Context) error {
 	return s.n.Shutdown(ctx)
+}
+
+func (s *Server) uiViewLanding(w http.ResponseWriter, r *http.Request) {
+	s.doTemplate(w, r, "p2/views/landing.p2", nil)
 }
