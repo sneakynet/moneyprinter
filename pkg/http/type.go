@@ -30,9 +30,10 @@ type DB interface {
 	AccountList(*types.Account) ([]types.Account, error)
 	AccountGet(*types.Account) (types.Account, error)
 
-	LineCreate(*types.Line) (uint, error)
+	LineSave(*types.Line) (uint, error)
 	LineList(*types.Line) ([]types.Line, error)
 	LineGet(*types.Line) (types.Line, error)
+	LineDelete(*types.Line) error
 
 	DNCreate(*types.DN) (uint, error)
 	DNList(*types.DN) ([]types.DN, error)

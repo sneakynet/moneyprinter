@@ -19,7 +19,7 @@
     {% for line in lines %}
     {% for dn in line.DNs %}
     <tr>
-      <td>{{ line.ID }}</td>
+      <td><a href="/ui/lines/{{ line.ID }}">{{ line.ID }}</a></td>
       <td>{{ dn.Number }}</td>
       <td>{{ dn.Display }}</td>
       <td>{{ line.Type }}</td>

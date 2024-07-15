@@ -18,7 +18,7 @@
       <td><a href="/ui/switches/{{ switch.ID }}">{{ switch.Name }}</a></td>
       <td>{{ switch.CLLI }}</td>
       <td>{{ switch.Type }}</td>
-      <td>{{ switch.Lines|length }}</td>
+      <td><a href="/ui/switches/{{ switch.ID }}/lines">{{ switch.Lines|length }}</a></td>
       <td><a href="/ui/switches/{{ switch.ID }}/equipment">{{ switch.Equipment|length }}</a></td>
     </tr>
   </table>

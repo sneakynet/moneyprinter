@@ -10,12 +10,21 @@ import (
 )
 
 func (s *Server) uiViewWirecenterList(w http.ResponseWriter, r *http.Request) {
-	wirecenteres, err := s.d.WirecenterList(nil)
+	wirecenters, err := s.d.WirecenterList(nil)
 	if err != nil {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/wirecenter_list.p2", pongo2.Context{"wirecenters": wirecenteres})
+	s.doTemplate(w, r, "p2/views/wirecenter_list.p2", pongo2.Context{"wirecenters": wirecenters})
+}
+
+func (s *Server) uiViewWirecenterDetail(w http.ResponseWriter, r *http.Request) {
+	wirecenter, err := s.d.WirecenterGet(&types.Wirecenter{ID: s.strToUint(chi.URLParam(r, "id"))})
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+	s.doTemplate(w, r, "p2/views/wirecenter_detail.p2", pongo2.Context{"wirecenter": wirecenter})
 }
 
 func (s *Server) uiViewWirecenterUpsert(w http.ResponseWriter, r *http.Request) {

@@ -37,8 +37,11 @@ type Line struct {
 	ID uint
 
 	CircuitID   uint
+	Account     Account
 	AccountID   uint
+	Switch      Switch
 	SwitchID    uint
+	Equipment   Equipment
 	EquipmentID uint
 	Type        string
 	DNs         []DN
@@ -70,7 +73,9 @@ type Switch struct {
 type Equipment struct {
 	ID uint
 
+	Switch       Switch
 	SwitchID     uint
+	Wirecenter   Wirecenter
 	WirecenterID uint
 	Name         string
 	Description  string

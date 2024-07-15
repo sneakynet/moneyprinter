@@ -14,7 +14,7 @@
     <tr>
       <td>{{ equipment.Name }}</td>
       <td>{{ equipment.Port }}</td>
-      <td>{{ equipment.WirecenterID }}</td>
+      <td><a href="/ui/wirecenters/{{ equipment.Wirecenter.ID }}">{{ equipment.Wirecenter.Name }}</a></td>
       <td>{{ equipment.Description }}</td>
     </tr>
   </table>

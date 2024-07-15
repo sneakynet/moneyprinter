@@ -1,6 +1,8 @@
 package db
 
 import (
+	"gorm.io/gorm/clause"
+
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
@@ -14,7 +16,7 @@ func (db *DB) EquipmentSave(eqpmnt *types.Equipment) (uint, error) {
 // instance.
 func (db *DB) EquipmentList(filter *types.Equipment) ([]types.Equipment, error) {
 	eqpmnts := []types.Equipment{}
-	res := db.d.Where(filter).Find(&eqpmnts)
+	res := db.d.Preload(clause.Associations).Where(filter).Find(&eqpmnts)
 	return eqpmnts, res.Error
 }
 
@@ -22,7 +24,7 @@ func (db *DB) EquipmentList(filter *types.Equipment) ([]types.Equipment, error) 
 // selected by the parameter in the filter instance.
 func (db *DB) EquipmentGet(filter *types.Equipment) (types.Equipment, error) {
 	eqpmnt := types.Equipment{}
-	res := db.d.Where(filter).First(&eqpmnt)
+	res := db.d.Preload(clause.Associations).Where(filter).First(&eqpmnt)
 	return eqpmnt, res.Error
 }
 

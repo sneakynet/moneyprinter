@@ -1,6 +1,8 @@
 package db
 
 import (
+	"gorm.io/gorm/clause"
+
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
@@ -14,7 +16,7 @@ func (db *DB) WirecenterSave(wc *types.Wirecenter) (uint, error) {
 // instance.
 func (db *DB) WirecenterList(filter *types.Wirecenter) ([]types.Wirecenter, error) {
 	wcs := []types.Wirecenter{}
-	res := db.d.Where(filter).Find(&wcs)
+	res := db.d.Where(filter).Preload(clause.Associations).Find(&wcs)
 	return wcs, res.Error
 }
 
@@ -22,7 +24,7 @@ func (db *DB) WirecenterList(filter *types.Wirecenter) ([]types.Wirecenter, erro
 // selected by the parameter in the filter instance.
 func (db *DB) WirecenterGet(filter *types.Wirecenter) (types.Wirecenter, error) {
 	wc := types.Wirecenter{}
-	res := db.d.Where(filter).First(&wc)
+	res := db.d.Where(filter).Preload(clause.Associations).First(&wc)
 	return wc, res.Error
 }
 

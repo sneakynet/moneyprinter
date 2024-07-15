@@ -102,7 +102,7 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 			slog.Warn("Error fetching DN by number", "error", err)
 			slog.Debug("Want to create a line", "linetype", record["LINETYPE"])
 			if record["LINETYPE"] == "FXS-LOOP-START" {
-				lineID, err := s.d.LineCreate(&types.Line{
+				lineID, err := s.d.LineSave(&types.Line{
 					AccountID:   acctID,
 					Type:        record["LINETYPE"],
 					SwitchID:    sw.ID,

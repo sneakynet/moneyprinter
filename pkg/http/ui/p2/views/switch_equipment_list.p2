@@ -21,7 +21,7 @@
     <tr>
       <td><a href="/ui/switches/{{ switch.ID }}/equipment/filter/{{ eq.Name }}">{{ eq.Name }}</a></td>
       <td>{{ eq.Port }}</td>
-      <td>{{ eq.WirecenterID }}</td>
+      <td><a href="/ui/wirecenters/{{ eq.WirecenterID }}">{{ eq.Wirecenter.Name }}</a></td>
       <td>{{ eq.Description }}</td>
       <td>
         <form action="/ui/switches/{{ switch.ID }}/equipment/{{ eq.ID }}/edit"><input type="submit" value="Edit" /></form>

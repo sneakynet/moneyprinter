@@ -67,21 +67,37 @@ func New(opts ...Option) (*Server, error) {
 		r.Post("/{id}/delete", s.uiViewSwitchDelete)
 
 		r.Route("/{id}/equipment", func(er chi.Router) {
-			r.Get("/", s.uiViewSwitchEquipment)
-			r.Get("/{eid}", s.uiViewSwitchEquipmentDetail)
-			r.Get("/new", s.uiViewSwitchEquipmentFormCreate)
-			r.Post("/new", s.uiViewSwitchEquipmentUpsert)
-			r.Get("/{eid}/edit", s.uiViewSwitchEquipmentFormEdit)
-			r.Post("/{eid}/edit", s.uiViewSwitchEquipmentUpsert)
-			r.Post("/{eid}/delete", s.uiViewSwitchEquipmentDelete)
-			r.Get("/filter/{eName}", s.uiViewSwitchEquipment)
+			er.Get("/", s.uiViewSwitchEquipment)
+			er.Get("/{eid}", s.uiViewSwitchEquipmentDetail)
+			er.Get("/new", s.uiViewSwitchEquipmentFormCreate)
+			er.Post("/new", s.uiViewSwitchEquipmentUpsert)
+			er.Get("/{eid}/edit", s.uiViewSwitchEquipmentFormEdit)
+			er.Post("/{eid}/edit", s.uiViewSwitchEquipmentUpsert)
+			er.Post("/{eid}/delete", s.uiViewSwitchEquipmentDelete)
+			er.Get("/filter/{eName}", s.uiViewSwitchEquipment)
 		})
+
+		r.Route("/{id}/lines", func(lr chi.Router) {
+			lr.Get("/", s.uiViewSwitchLineList)
+			lr.Get("/{lid}", s.uiViewSwitchLineDetail)
+			lr.Get("/new", s.uiViewSwitchLineFormCreate)
+			lr.Post("/new", s.uiViewSwitchLineUpsert)
+			lr.Get("/{lid}/edit", s.uiViewSwitchLineFormEdit)
+			lr.Post("/{lid}/edit", s.uiViewSwitchLineUpsert)
+			lr.Post("/{lid}/delete", s.uiViewSwitchLineDelete)
+		})
+	})
+
+	s.r.Route("/ui/lines", func(r chi.Router) {
+		r.Get("/", s.uiViewSwitchLineListAll)
+		r.Get("/{lid}", s.uiViewSwitchLineDetail)
 	})
 
 	s.r.Route("/ui/wirecenters", func(r chi.Router) {
 		r.Get("/", s.uiViewWirecenterList)
 		r.Get("/new", s.uiViewWirecenterFormCreate)
 		r.Post("/new", s.uiViewWirecenterUpsert)
+		r.Get("/{id}", s.uiViewWirecenterDetail)
 		r.Get("/{id}/edit", s.uiViewWirecenterFormEdit)
 		r.Post("/{id}/edit", s.uiViewWirecenterUpsert)
 		r.Get("/{id}/delete", s.uiViewWirecenterDelete)
