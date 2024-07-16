@@ -1,0 +1,31 @@
+{% extends "../base.p2" %}
+
+{% block title %}{{ equipment|yesno:"Edit,Create,Create" }} Equipment{% endblock %}
+
+{% block content %}
+<div>
+  <form method="POST">
+    <label for="dn_number">Number</label>
+    <input name="dn_nubmer" type="string" value="{{ dn.Number }}" />
+
+    <label for="dn_display">Display (CNAM)</label>
+    <input name="dn_display" type="string" value="{{ dn.Display }}" />
+
+    <label for="line_id">Line</label>
+    <select name="line_id">
+      {% for line in lines %}
+      <option value="{{ line.ID }}">{{ line.Switch.Name }} - {{ line.Equipment.Name }} - {{ line.Equipment.Port }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="account_id">Account</label>
+    <select name="account_id">
+      {% for account in accounts %}
+      <option value="{{ account.ID }}">{{ account.Name }}</option>
+      {% endfor %}
+    </select>
+
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

@@ -93,6 +93,16 @@ func New(opts ...Option) (*Server, error) {
 		r.Get("/{lid}", s.uiViewSwitchLineDetail)
 	})
 
+	s.r.Route("/ui/dn", func(r chi.Router) {
+		r.Get("/", s.uiViewDNList)
+		r.Get("/{id}", s.uiViewDNDetail)
+		r.Get("/new", s.uiViewDNFormCreate)
+		r.Post("/new", s.uiViewDNUpsert)
+		r.Get("/{id}/edit", s.uiViewDNFormEdit)
+		r.Post("/{id}/edit", s.uiViewDNUpsert)
+		r.Post("/{id}/delete", s.uiViewDNDelete)
+	})
+
 	s.r.Route("/ui/wirecenters", func(r chi.Router) {
 		r.Get("/", s.uiViewWirecenterList)
 		r.Get("/new", s.uiViewWirecenterFormCreate)

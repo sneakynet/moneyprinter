@@ -25,7 +25,7 @@ func (s *Server) uiViewSwitchLineListFilter(w http.ResponseWriter, r *http.Reque
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/line_list.p2", pongo2.Context{"lines": lines})
+	s.doTemplate(w, r, "p2/views/line_list.p2", pongo2.Context{"lines": lines, "switch_id": chi.URLParam(r, "id")})
 }
 
 func (s *Server) uiViewSwitchLineDetail(w http.ResponseWriter, r *http.Request) {

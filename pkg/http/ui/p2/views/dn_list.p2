@@ -1,0 +1,31 @@
+{% extends "../base.p2" %}
+
+{% block title %}DNs{% endblock %}
+
+{% block content %}
+<div>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Number</th>
+      <th>Display</th>
+      <th>Account</th>
+      <th>Line</th>
+      <th>Actions</th>
+    </tr>
+    {% for dn in dns %}
+    <tr>
+      <td><a href="/ui/dn/{{ dn.ID }}">{{ dn.ID }}</a></td>
+      <td>{{ dn.Number }}</td>
+      <td>{{ dn.Display }}</td>
+      <td><a href="/ui/accounts/{{ dn.Account.ID }}">{{ dn.Account.Name }}</a></td>
+      <td><a href="/ui/switches/{{ dn.Line.SwitchID }}/lines/{{ dn.LineID }}">{{ dn.Line.ID }}</a></td>
+      <td>
+        <form action="/ui/dn/{{ dn.ID }}/edit"><input type="submit" value="Edit" /></form>
+        <form method="POST" action="/ui/dn/{{ dn.ID }}/delete"><input type="submit" value="Delete" /></form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

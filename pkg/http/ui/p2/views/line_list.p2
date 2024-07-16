@@ -4,7 +4,7 @@
 
 {% block content %}
 <div>
-  <a href="/ui/switches/{{ switch.ID }}/lines/new">Provision Line</a>
+  <a href="/ui/switches/{{ switch_id }}/lines/new">Provision Line</a>
   <table>
     <tr>
       <th>ID</th>

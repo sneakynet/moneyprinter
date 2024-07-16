@@ -26,7 +26,9 @@ type DN struct {
 	Number  uint
 	Display string
 
+	Line      Line
 	LineID    uint
+	Account   Account
 	AccountID uint
 }
 

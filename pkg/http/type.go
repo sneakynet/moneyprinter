@@ -35,9 +35,10 @@ type DB interface {
 	LineGet(*types.Line) (types.Line, error)
 	LineDelete(*types.Line) error
 
-	DNCreate(*types.DN) (uint, error)
+	DNSave(*types.DN) (uint, error)
 	DNList(*types.DN) ([]types.DN, error)
 	DNGet(*types.DN) (types.DN, error)
+	DNDelete(*types.DN) error
 
 	SwitchSave(*types.Switch) (uint, error)
 	SwitchList(*types.Switch) ([]types.Switch, error)

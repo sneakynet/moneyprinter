@@ -113,7 +113,7 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 					return
 				}
 
-				_, err = s.d.DNCreate(&types.DN{
+				_, err = s.d.DNSave(&types.DN{
 					Number:    s.strToUint(record["DN"]),
 					Display:   record["CNAM"],
 					AccountID: acctID,
