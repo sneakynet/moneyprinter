@@ -5,6 +5,7 @@ import (
 
 	"github.com/flosch/pongo2/v5"
 	"github.com/go-chi/chi/v5"
+	"gorm.io/gorm"
 
 	"github.com/sneakynet/moneyprinter/pkg/bill"
 	"github.com/sneakynet/moneyprinter/pkg/types"
@@ -26,6 +27,8 @@ type Option func(*Server)
 // DB encapsulates all the logic that the webserver expects to be able
 // to do.
 type DB interface {
+	Raw() *gorm.DB
+
 	AccountCreate(*types.Account) (uint, error)
 	AccountList(*types.Account) ([]types.Account, error)
 	AccountGet(*types.Account) (types.Account, error)

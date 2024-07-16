@@ -42,3 +42,9 @@ func (db *DB) Migrate() error {
 
 	return nil
 }
+
+// Raw provides a handle to the underlying gorm instance for when the
+// wrapped queries are insufficient.
+func (db *DB) Raw() *gorm.DB {
+	return db.d
+}

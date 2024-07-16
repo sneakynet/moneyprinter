@@ -50,6 +50,8 @@ func New(opts ...Option) (*Server, error) {
 		r.Get("/new", s.uiViewAccountCreateForm)
 		r.Get("/{id}", s.uiViewAccount)
 		r.Get("/{id}/bill", s.uiViewAccountBill)
+		r.Get("/{id}/provision-line", s.uiViewAccountProvisionLineForm)
+		r.Post("/{id}/provision-line", s.uiViewAccountProvisionLine)
 	})
 
 	s.r.Get("/ui/cdrs", s.uiViewCDRs)

@@ -16,6 +16,7 @@
       <th>Type</th>
       <th>Actions</th>
     </tr>
+    <a href="/ui/accounts/{{ account.ID }}/provision-line">Provision Line</a>
     {% for line in lines %}
     {% for dn in line.DNs %}
     <tr>

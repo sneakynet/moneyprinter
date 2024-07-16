@@ -69,7 +69,7 @@ func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/ui/account/%d", id), http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/ui/accounts/%d", id), http.StatusSeeOther)
 }
 
 func (s *Server) uiViewAccountBill(w http.ResponseWriter, r *http.Request) {
@@ -90,4 +90,51 @@ func (s *Server) uiViewAccountBill(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.doTemplate(w, r, "p2/views/account_bill.p2", pongo2.Context{"account": account, "bill": bill})
+}
+
+func (s *Server) uiViewAccountProvisionLineForm(w http.ResponseWriter, r *http.Request) {
+	var lines []types.Line
+	err := s.d.Raw().Where(map[string]interface{}{"account_id": 0}).Preload("Equipment").Find(&lines).Error
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	ctx := pongo2.Context{"lines": lines}
+
+	s.doTemplate(w, r, "p2/views/account_provision_line.p2", ctx)
+}
+
+func (s *Server) uiViewAccountProvisionLine(w http.ResponseWriter, r *http.Request) {
+	acctID := s.strToUint(chi.URLParam(r, "id"))
+	if err := r.ParseForm(); err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	line, err := s.d.LineGet(&types.Line{ID: s.strToUint(r.FormValue("line_id"))})
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+	line.AccountID = acctID
+
+	if _, err := s.d.LineSave(&line); err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	dn := types.DN{
+		Number:    s.strToUint(r.FormValue("dn_number")),
+		Display:   r.FormValue("dn_display"),
+		LineID:    line.ID,
+		AccountID: acctID,
+	}
+
+	if _, err := s.d.DNSave(&dn); err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	http.Redirect(w, r, fmt.Sprintf("/ui/accounts/%d", acctID), http.StatusSeeOther)
 }
