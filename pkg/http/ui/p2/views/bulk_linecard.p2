@@ -1,0 +1,53 @@
+{% extends "../base.p2" %}
+
+{% block title %}Create Linecard{% endblock %}
+
+{% block content %}
+<div>
+  <p>This form creates an entire linecard's worth of equipment at a
+  time in a given wirecenter.  Optionally, you can preallocate lines
+  to every equipment port simultaneously.</p>
+
+  <form method="POST">
+    <label for="switch_id">Switch</label>
+    <select name="switch_id">
+      {% for switch in switches %}
+      <option value="{{ switch.ID }}">{{ switch.Name }}</option>
+      {% endfor %}
+    </select>
+    <br />
+
+    <label for="wirecenter_id">Wirecenter</label>
+    <select name="wirecenter_id">
+      {% for wirecenter in wirecenters %}
+      <option value="{{ wirecenter.ID }}">{{ wirecenter.Name }}</option>
+      {% endfor %}
+    </select>
+    <br />
+
+    <label for="equipment_type">Equipment Type</label>
+    <select name="equipment_type">
+      <option value="FXS-LOOP-START">FXS Loop Start</option>
+    </select>
+    <br />
+
+    <label for="card_name">Card Name</label>
+    <input name="card_name" type="text" />
+    <br />
+
+    <label for="port_tmpl">Port Template Expression; This must contain <pre>{% templatetag openvariable %} port {% templatetag closevariable %}</pre> and will be itereated from 0 to the provided port count to create the line equipment objects.</label>
+    <input name="port_tmpl" type="text" />
+    <br />
+
+    <label for="port_count">Port Count</label>
+    <input name="port_count" type="number" />
+    <br />
+
+    <label for="allocate_lines">Auto-Allocate Lines for FXS ports?</label>
+    <input name="allocate_lines" type="checkbox" />
+    <br />
+
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

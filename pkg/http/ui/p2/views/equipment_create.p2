@@ -14,6 +14,11 @@
     <label for="equipment_port">Port:</label>
     <input name="equipment_port" type="text" value="{{ equipment.Port }}" />
 
+    <label for="equipment_type">Equipment Type</label>
+    <select name="equipment_type">
+      <option value="FXS-LOOP-START">FXS Loop Start</option>
+    </select>
+
     {% if wirecenters %}
     <label for="equipment_wirecenter_id">Wirecenter:</label>
     <select name="equipment_wirecenter_id">

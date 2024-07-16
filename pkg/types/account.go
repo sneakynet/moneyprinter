@@ -45,7 +45,6 @@ type Line struct {
 	SwitchID    uint
 	Equipment   Equipment
 	EquipmentID uint
-	Type        string
 	DNs         []DN
 }
 
@@ -82,6 +81,7 @@ type Equipment struct {
 	Name         string
 	Description  string
 	Port         string
+	Type         string
 }
 
 // Circuit specifies a single connection that is paid for by an

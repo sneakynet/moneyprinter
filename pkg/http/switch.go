@@ -155,6 +155,7 @@ func (s *Server) uiViewSwitchEquipmentUpsert(w http.ResponseWriter, r *http.Requ
 		Name:         r.FormValue("equipment_name"),
 		Port:         r.FormValue("equipment_port"),
 		Description:  r.FormValue("equipment_desc"),
+		Type:         r.FormValue("equipment_type"),
 	}
 
 	if _, err := s.d.EquipmentSave(&eq); err != nil {
@@ -170,5 +171,5 @@ func (s *Server) uiViewSwitchEquipmentDelete(w http.ResponseWriter, r *http.Requ
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	http.Redirect(w, r, "/ui/switches/"+chi.URLParam(r, "id"), http.StatusSeeOther)
+	http.Redirect(w, r, "/ui/switches/"+chi.URLParam(r, "id")+"/equipment", http.StatusSeeOther)
 }

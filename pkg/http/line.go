@@ -87,7 +87,6 @@ func (s *Server) uiViewSwitchLineFormEdit(w http.ResponseWriter, r *http.Request
 		"equipment": equipment,
 		"accounts":  []types.Account{line.Account},
 		"line":      line,
-		"linetypes": []string{"FXS-LOOP-START"},
 	}
 
 	s.doTemplate(w, r, "p2/views/line_create.p2", ctx)
@@ -107,7 +106,6 @@ func (s *Server) uiViewSwitchLineUpsert(w http.ResponseWriter, r *http.Request) 
 		AccountID:   s.strToUint(r.FormValue("account_id")),
 		SwitchID:    swID,
 		EquipmentID: s.strToUint(r.FormValue("equipment_id")),
-		Type:        r.FormValue("line_type"),
 	}
 
 	lID, err := s.d.LineSave(&l)

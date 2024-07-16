@@ -36,12 +36,18 @@ func New(opts ...Option) (*Server, error) {
 	})
 	s.r.Get("/ui", s.uiViewLanding)
 
+	s.r.Route("/ui/bulk", func(r chi.Router) {
+		r.Get("/", s.uiViewBulkLanding)
+		r.Get("/omni", s.uiViewBulkOmniForm)
+		r.Post("/omni", s.uiViewBulkOmniCreate)
+		r.Get("/line-card", s.uiViewBulkLinecardForm)
+		r.Post("/line-card", s.uiViewBulkLinecardCreate)
+	})
+
 	s.r.Route("/ui/accounts", func(r chi.Router) {
 		r.Get("/", s.uiViewAccountsList)
 		r.Post("/", s.uiHandleAccountCreateSingle)
 		r.Get("/new", s.uiViewAccountCreateForm)
-		r.Get("/bulk", s.uiViewAccountBulkForm)
-		r.Post("/bulk", s.uiHandleAccountCreateBulk)
 		r.Get("/{id}", s.uiViewAccount)
 		r.Get("/{id}/bill", s.uiViewAccountBill)
 	})

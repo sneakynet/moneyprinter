@@ -18,14 +18,6 @@
       <option value="{{ eq.ID }}">{{ eq.Name }} {{ eq.Port }}</option>
       {% endfor %}
     </select>
-
-    <label for="line_type">Type:</label>
-    <select name="line_type">
-      {% for t in linetypes %}
-      <option value="{{ t }}">{{ t }}</option>
-      {% endfor %}
-    </select>
-
     <input type="submit" />
   </form>
 </div>

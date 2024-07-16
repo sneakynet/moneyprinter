@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
 
@@ -9,7 +10,15 @@ import (
 	"github.com/sneakynet/moneyprinter/pkg/types"
 )
 
-func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Request) {
+func (s *Server) uiViewBulkLanding(w http.ResponseWriter, r *http.Request) {
+	s.doTemplate(w, r, "p2/views/bulk_landing.p2", nil)
+}
+
+func (s *Server) uiViewBulkOmniForm(w http.ResponseWriter, r *http.Request) {
+	s.doTemplate(w, r, "p2/views/bulk_omni.p2", nil)
+}
+
+func (s *Server) uiViewBulkOmniCreate(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	f, _, err := r.FormFile("accounts_file")
 	if err != nil {
@@ -85,6 +94,7 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 				Port:         record["PORT"],
 				SwitchID:     sw.ID,
 				WirecenterID: wc.ID,
+				Type:         record["LINETYPE"],
 			})
 			if err != nil {
 				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
@@ -104,7 +114,6 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 			if record["LINETYPE"] == "FXS-LOOP-START" {
 				lineID, err := s.d.LineSave(&types.Line{
 					AccountID:   acctID,
-					Type:        record["LINETYPE"],
 					SwitchID:    sw.ID,
 					EquipmentID: eqpmnt.ID,
 				})
@@ -128,4 +137,74 @@ func (s *Server) uiHandleAccountCreateBulk(w http.ResponseWriter, r *http.Reques
 	}
 
 	http.Redirect(w, r, "/ui/accounts", http.StatusSeeOther)
+}
+
+func (s *Server) uiViewBulkLinecardForm(w http.ResponseWriter, r *http.Request) {
+	switches, err := s.d.SwitchList(nil)
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	wirecenters, err := s.d.WirecenterList(nil)
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	ctx := pongo2.Context{
+		"switches":    switches,
+		"wirecenters": wirecenters,
+	}
+
+	s.doTemplate(w, r, "p2/views/bulk_linecard.p2", ctx)
+}
+
+func (s *Server) uiViewBulkLinecardCreate(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	tpl, err := pongo2.FromString(r.FormValue("port_tmpl"))
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+
+	swID := s.strToUint(r.FormValue("switch_id"))
+	wcID := s.strToUint(r.FormValue("wirecenter_id"))
+	eqName := r.FormValue("card_name")
+	eqType := r.FormValue("equipment_type")
+
+	for id := range s.strToUint(r.FormValue("port_count")) {
+		port, err := tpl.Execute(pongo2.Context{"id": id})
+		if err != nil {
+			s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+			return
+		}
+
+		eq := types.Equipment{
+			SwitchID:     swID,
+			WirecenterID: wcID,
+			Name:         eqName,
+			Type:         eqType,
+			Port:         port,
+		}
+
+		if _, err := s.d.EquipmentSave(&eq); err != nil {
+			s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+			return
+		}
+
+		if eq.Type == "FXS-LOOP-START" && r.FormValue("allocate_lines") != "" {
+			l := types.Line{SwitchID: swID, EquipmentID: eq.ID}
+			if _, err := s.d.LineSave(&l); err != nil {
+				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+				return
+			}
+		}
+	}
+
+	http.Redirect(w, r, fmt.Sprintf("/ui/switches/%d/equipment/filter/%s", swID, eqName), http.StatusSeeOther)
 }

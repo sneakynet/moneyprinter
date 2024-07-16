@@ -15,10 +15,6 @@ func (s *Server) uiViewAccountCreateForm(w http.ResponseWriter, r *http.Request)
 	s.doTemplate(w, r, "p2/views/account_create.p2", nil)
 }
 
-func (s *Server) uiViewAccountBulkForm(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/account_bulk.p2", nil)
-}
-
 func (s *Server) uiViewAccountsList(w http.ResponseWriter, r *http.Request) {
 	accounts, err := s.d.AccountList(nil)
 	if err != nil {

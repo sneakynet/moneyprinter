@@ -13,7 +13,7 @@ func (a Account) BillText() string {
 // BillText formats the text that will be displayed or this item on a
 // Bill.
 func (l Line) BillText() string {
-	return fmt.Sprintf("Line #%d (%s)", l.ID, l.Type)
+	return fmt.Sprintf("Line #%d (%s)", l.ID, l.Equipment.Type)
 }
 
 // BillText formats the text that will be displayed or this item on a

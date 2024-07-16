@@ -4,7 +4,6 @@
 
 {% block content %}
 <div>
-  <a href="/ui/accounts/bulk">Add Bulk</a>
   <a href="/ui/accounts/new">Add Single</a>
   <table>
     <tr>
@@ -26,7 +25,7 @@
     </tr>
     {% empty %}
     <tr>
-      <td colspan=4>There are no accounts here.  Perhaps you'd like to <a href="/ui/accounts/bulk">add some</a>?</td>
+      <td colspan=4>There are no accounts here.  Perhaps you'd like to <a href="/ui/accounts/new">add some</a>?</td>
     </tr>
     {% endfor %}
   </table>

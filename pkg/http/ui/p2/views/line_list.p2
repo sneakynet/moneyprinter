@@ -11,7 +11,6 @@
       <th>Account</th>
       <th>Switch</th>
       <th>Equipment Port</th>
-      <th>Type</th>
       <th>DNs</th>
       <th>Actions</th>
     </tr>
@@ -21,7 +20,6 @@
       <td><a href="/ui/accounts/{{ line.AccountID }}">{{ line.Account.Name }}</a></td>
       <td><a href="/ui/switches/{{ line.SwitchID }}">{{ line.Switch.Name }}</a></td>
       <td><a href="/ui/switches/{{ line.SwitchID }}/equipment/{{ line.EquipmentID }}">{{ line.Equipment.Name }} {{ line.Equipment.Port }}</a></td>
-      <td>{{ line.Type }}</td>
       <td>
         {% for dn in line.DNs %}
         <a href="/ui/dn/{{ dn.ID }}">{{ dn.Number}}</a>
