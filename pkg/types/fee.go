@@ -1,11 +1,17 @@
 package types
 
+import (
+	"gorm.io/gorm"
+)
+
 // A Fee is an individual line item that comprises a bill.  A bill is
 // composed of fees as calulated for an account.  Fees can match
 // against many different facets of an account and are evaluated
 // within a FeeContext which includes details about an account's
 // lines, circuits, services, and CDR information.
 type Fee struct {
+	gorm.Model
+
 	ID uint
 
 	Name       string

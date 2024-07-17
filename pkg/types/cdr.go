@@ -2,12 +2,16 @@ package types
 
 import (
 	"time"
+
+	"gorm.io/gorm"
 )
 
 // CDR is a Call Detail Record, which provies information about a
 // specific call.  This is a normalized format across all input
 // formats.
 type CDR struct {
+	gorm.Model
+
 	ID uint
 
 	OrigID  uint

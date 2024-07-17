@@ -22,6 +22,8 @@ type Account struct {
 // A DN is associated with a Line and has an identifying name with it.
 // This allows the system to provision caller ID records.
 type DN struct {
+	gorm.Model
+
 	ID      uint
 	Number  uint
 	Display string
@@ -36,6 +38,8 @@ type DN struct {
 // is the basic billable unit of access, which may have one or more
 // DNs associated with it.
 type Line struct {
+	gorm.Model
+
 	ID uint
 
 	CircuitID   uint
@@ -51,6 +55,8 @@ type Line struct {
 // Wirecenter represents a single location to which wire comes back
 // to.  A central location if you will.
 type Wirecenter struct {
+	gorm.Model
+
 	ID uint
 
 	Name      string
@@ -59,6 +65,8 @@ type Wirecenter struct {
 
 // Switch represents a switch with some amount of capacity on it.
 type Switch struct {
+	gorm.Model
+
 	ID uint
 
 	Name string
@@ -72,6 +80,8 @@ type Switch struct {
 // Equipment is used to serve lines and typically represents a port on
 // a switch
 type Equipment struct {
+	gorm.Model
+
 	ID uint
 
 	Switch       Switch
