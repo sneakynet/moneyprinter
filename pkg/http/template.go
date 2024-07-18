@@ -2,6 +2,7 @@ package http
 
 import (
 	"embed"
+	"encoding/base64"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -39,4 +40,29 @@ func (s *Server) filterFormatMoney(in *pongo2.Value, param *pongo2.Value) (*pong
 	}
 	ac := accounting.Accounting{Symbol: "$", Precision: 2}
 	return pongo2.AsValue(ac.FormatMoney(float64(cents) / 100)), nil
+}
+
+func (s *Server) filterBytesAsString(in *pongo2.Value, param *pongo2.Value) (*pongo2.Value, *pongo2.Error) {
+	bytes, ok := in.Interface().([]byte)
+	if !ok {
+		slog.Warn("Got something that wasn't a byte array in bytesAsString", "something", in)
+		return pongo2.AsValue(""), nil
+	}
+	return pongo2.AsValue(string(bytes)), nil
+}
+
+func (s *Server) filterDecodeBase64(in *pongo2.Value, param *pongo2.Value) (*pongo2.Value, *pongo2.Error) {
+	bytes, ok := in.Interface().([]byte)
+	if !ok {
+		slog.Warn("Got something that wasn't a byte array in decodeBase64", "something", in)
+		return pongo2.AsValue(""), nil
+	}
+	dst := make([]byte, base64.StdEncoding.DecodedLen(len(bytes)))
+	n, err := base64.StdEncoding.Decode(dst, bytes)
+	if err != nil {
+		slog.Warn("Decode error in fitlerDecodeBase64", "error", err)
+		return pongo2.AsValue(""), nil
+	}
+	dst = dst[:n]
+	return pongo2.AsSafeValue(string(dst)), nil
 }

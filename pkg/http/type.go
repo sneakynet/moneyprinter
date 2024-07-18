@@ -66,6 +66,13 @@ type DB interface {
 	FeeList(*types.Fee) ([]types.Fee, error)
 	FeeGet(*types.Fee) (types.Fee, error)
 	FeeDelete(*types.Fee) error
+
+	LECSave(*types.LEC) (uint, error)
+	LECList(*types.LEC) ([]types.LEC, error)
+	LECGet(*types.LEC) (types.LEC, error)
+	LECDelete(*types.LEC) error
+
+	LogoSave(*types.Logo) (uint, error)
 }
 
 // BillProcessor actually generates and returns bills.

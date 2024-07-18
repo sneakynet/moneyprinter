@@ -25,6 +25,8 @@ func New(opts ...Option) (*Server, error) {
 	}
 
 	pongo2.RegisterFilter("money", s.filterFormatMoney)
+	pongo2.RegisterFilter("bytesAsString", s.filterBytesAsString)
+	pongo2.RegisterFilter("decodeBase64", s.filterDecodeBase64)
 
 	s.r.Use(middleware.Heartbeat("/ping"))
 	s.r.Use(middleware.Logger)
@@ -119,6 +121,18 @@ func New(opts ...Option) (*Server, error) {
 		r.Get("/{id}/edit", s.uiViewWirecenterFormEdit)
 		r.Post("/{id}/edit", s.uiViewWirecenterUpsert)
 		r.Get("/{id}/delete", s.uiViewWirecenterDelete)
+	})
+
+	s.r.Route("/ui/lecs", func(r chi.Router) {
+		r.Get("/", s.uiViewLECList)
+		r.Get("/new", s.uiViewLECFormCreate)
+		r.Post("/new", s.uiViewLECUpsert)
+		r.Get("/{id}", s.uiViewLECDetail)
+		r.Get("/{id}/edit", s.uiViewLECFormEdit)
+		r.Post("/{id}/edit", s.uiViewLECUpsert)
+		r.Get("/{id}/set-logo", s.uiViewLogoForm)
+		r.Post("/{id}/set-logo", s.uiViewLogoSet)
+		r.Post("/{id}/delete", s.uiViewLECDelete)
 	})
 
 	s.r.Post("/api/cdr", s.apiCreateCDR)

@@ -26,14 +26,16 @@ func (db *DB) Connect(file string) error {
 func (db *DB) Migrate() error {
 	tables := []interface{}{
 		&types.Account{},
+		&types.CDR{},
 		&types.Circuit{},
 		&types.DN{},
+		&types.Equipment{},
+		&types.Fee{},
+		&types.LEC{},
+		&types.Logo{},
 		&types.Line{},
 		&types.Switch{},
-		&types.Equipment{},
 		&types.Wirecenter{},
-		&types.CDR{},
-		&types.Fee{},
 	}
 
 	if err := db.d.AutoMigrate(tables...); err != nil {
