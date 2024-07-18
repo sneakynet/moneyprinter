@@ -26,7 +26,12 @@ func main() {
 		return
 	}
 
-	if err := db.Connect("moneyprinter.db"); err != nil {
+	dbPath := os.Getenv("MONEYPRINTER_DB")
+	if dbPath == "" {
+		dbPath = "moneyprinter.db"
+	}
+
+	if err := db.Connect(dbPath); err != nil {
 		slog.Error("Error connecting to database", "error", err)
 		return
 	}
