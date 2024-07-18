@@ -14,7 +14,7 @@ import (
 )
 
 func (s *Server) uiViewLogoForm(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/lec_logo.p2", nil)
+	s.doTemplate(w, r, "views/lec/logo.p2", nil)
 }
 
 func (s *Server) uiViewLogoSet(w http.ResponseWriter, r *http.Request) {

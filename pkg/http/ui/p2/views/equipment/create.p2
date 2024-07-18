@@ -1,0 +1,36 @@
+{% extends "../../base.p2" %}
+
+{% block title %}{{ equipment|yesno:"Edit,Create,Create" }} Equipment{% endblock %}
+
+{% block content %}
+<div>
+  <form method="POST">
+    <label for="equipment_name">Name:</label>
+    <input name="equipment_name" type="text" value="{{ equipment.Name }}" />
+
+    <label for="equipment_desc">Description:</label>
+    <input name="equipment_desc" type="text" value="{{ equipment.Description }}" />
+
+    <label for="equipment_port">Port:</label>
+    <input name="equipment_port" type="text" value="{{ equipment.Port }}" />
+
+    <label for="equipment_type">Equipment Type</label>
+    <select name="equipment_type">
+      <option value="FXS-LOOP-START">FXS Loop Start</option>
+    </select>
+
+    {% if wirecenters %}
+    <label for="equipment_wirecenter_id">Wirecenter:</label>
+    <select name="equipment_wirecenter_id">
+      {% for wc in wirecenters %}
+      <option value="{{ wc.ID }}">{{ wc.Name }}</option>
+      {% endfor %}
+    </select>
+    {% else %}
+    <input name="equipment_wirecenter_id" type="text" hidden="yes" value="{{ equipment.WirecenterID }}" />
+    {% endif %}
+
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

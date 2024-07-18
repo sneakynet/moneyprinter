@@ -25,7 +25,7 @@ func (s *Server) uiViewSwitchLineListFilter(w http.ResponseWriter, r *http.Reque
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/line_list.p2", pongo2.Context{"lines": lines, "switch_id": chi.URLParam(r, "id")})
+	s.doTemplate(w, r, "views/line/list.p2", pongo2.Context{"lines": lines, "switch_id": chi.URLParam(r, "id")})
 }
 
 func (s *Server) uiViewSwitchLineDetail(w http.ResponseWriter, r *http.Request) {
@@ -36,7 +36,7 @@ func (s *Server) uiViewSwitchLineDetail(w http.ResponseWriter, r *http.Request) 
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/line_detail.p2", pongo2.Context{"line": line})
+	s.doTemplate(w, r, "views/line/detail.p2", pongo2.Context{"line": line})
 }
 
 func (s *Server) uiViewSwitchLineFormCreate(w http.ResponseWriter, r *http.Request) {
@@ -67,7 +67,7 @@ func (s *Server) uiViewSwitchLineFormCreate(w http.ResponseWriter, r *http.Reque
 		"linetypes": []string{"FXS-LOOP-START"},
 	}
 
-	s.doTemplate(w, r, "p2/views/line_create.p2", ctx)
+	s.doTemplate(w, r, "views/line/create.p2", ctx)
 }
 
 func (s *Server) uiViewSwitchLineFormEdit(w http.ResponseWriter, r *http.Request) {
@@ -89,7 +89,7 @@ func (s *Server) uiViewSwitchLineFormEdit(w http.ResponseWriter, r *http.Request
 		"line":      line,
 	}
 
-	s.doTemplate(w, r, "p2/views/line_create.p2", ctx)
+	s.doTemplate(w, r, "views/line/create.p2", ctx)
 }
 
 func (s *Server) uiViewSwitchLineUpsert(w http.ResponseWriter, r *http.Request) {

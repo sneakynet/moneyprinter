@@ -18,7 +18,7 @@ func (s *Server) uiViewSwitchList(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/switch_list.p2", pongo2.Context{"switches": switches})
+	s.doTemplate(w, r, "views/switch/list.p2", pongo2.Context{"switches": switches})
 }
 
 func (s *Server) uiViewSwitchDetail(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +27,7 @@ func (s *Server) uiViewSwitchDetail(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/switch_detail.p2", pongo2.Context{"switch": sw})
+	s.doTemplate(w, r, "views/switch/detail.p2", pongo2.Context{"switch": sw})
 }
 
 func (s *Server) uiViewSwitchUpsert(w http.ResponseWriter, r *http.Request) {
@@ -53,7 +53,7 @@ func (s *Server) uiViewSwitchUpsert(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) uiViewSwitchFormCreate(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/switch_create.p2", nil)
+	s.doTemplate(w, r, "views/switch/create.p2", nil)
 }
 
 func (s *Server) uiViewSwitchFormEdit(w http.ResponseWriter, r *http.Request) {
@@ -63,7 +63,7 @@ func (s *Server) uiViewSwitchFormEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/switch_create.p2", pongo2.Context{"switch": sw})
+	s.doTemplate(w, r, "views/switch/create.p2", pongo2.Context{"switch": sw})
 }
 
 func (s *Server) uiViewSwitchDelete(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +102,7 @@ func (s *Server) uiViewSwitchEquipment(w http.ResponseWriter, r *http.Request) {
 		"equipment": equipment,
 	}
 
-	s.doTemplate(w, r, "p2/views/switch_equipment_list.p2", ctx)
+	s.doTemplate(w, r, "views/equipment/list.p2", ctx)
 }
 
 func (s *Server) uiViewSwitchEquipmentDetail(w http.ResponseWriter, r *http.Request) {
@@ -114,7 +114,7 @@ func (s *Server) uiViewSwitchEquipmentDetail(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/equipment_detail.p2", pongo2.Context{"equipment": eq})
+	s.doTemplate(w, r, "views/equipment/detail.p2", pongo2.Context{"equipment": eq})
 }
 
 func (s *Server) uiViewSwitchEquipmentFormCreate(w http.ResponseWriter, r *http.Request) {
@@ -124,7 +124,7 @@ func (s *Server) uiViewSwitchEquipmentFormCreate(w http.ResponseWriter, r *http.
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/equipment_create.p2", pongo2.Context{"wirecenters": wirecenters})
+	s.doTemplate(w, r, "views/equipment/create.p2", pongo2.Context{"wirecenters": wirecenters})
 }
 
 func (s *Server) uiViewSwitchEquipmentFormEdit(w http.ResponseWriter, r *http.Request) {
@@ -136,7 +136,7 @@ func (s *Server) uiViewSwitchEquipmentFormEdit(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/equipment_create.p2", pongo2.Context{"equipment": eq})
+	s.doTemplate(w, r, "views/equipment/create.p2", pongo2.Context{"equipment": eq})
 }
 
 func (s *Server) uiViewSwitchEquipmentUpsert(w http.ResponseWriter, r *http.Request) {

@@ -1,0 +1,35 @@
+{% extends "../../base.p2" %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+<div>
+  <p>Name: {{ account.Name }}</p>
+  <p>Contact: {{ account.Contact }}</p>
+  <p>Alias: {{ account.Alias }}</p>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>DN</th>
+      <th>CNAM</th>
+      <th>Type</th>
+      <th>Actions</th>
+    </tr>
+    <a href="/ui/accounts/{{ account.ID }}/provision-line">Provision Line</a>
+    {% for line in lines %}
+    {% for dn in line.DNs %}
+    <tr>
+      <td><a href="/ui/lines/{{ line.ID }}">{{ line.ID }}</a></td>
+      <td>{{ dn.Number }}</td>
+      <td>{{ dn.Display }}</td>
+      <td>{{ line.Type }}</td>
+      <td>
+        <a href="/ui/cdrs?dn={{ dn.Number }}">CDRs</a>
+      </td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

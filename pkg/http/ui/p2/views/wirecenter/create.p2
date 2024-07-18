@@ -1,0 +1,15 @@
+{% extends "../../base.p2" %}
+
+{% block title %}{{ switch|yesno:"Edit,Create,Create" }} Wirecenter{% endblock %}
+
+{% block content %}
+<div>
+  <form method="POST">
+    <label for="wirecenter_name">Name:</label>
+    <input name="wirecenter_name" type="text" value="{{ wirecenter.Name }}" />
+    <br />
+
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

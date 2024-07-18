@@ -1,0 +1,16 @@
+{% extends "../../base.p2" %}
+
+{% block title %}Wirecenters{% endblock %}
+
+{% block content %}
+<div>
+  <table>
+    <tr>
+      <th>Name</th>
+    </tr>
+    <tr>
+      <td><a href="/ui/wirecenters/{{ wirecenter.ID }}">{{ wirecenter.Name }}</a></td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

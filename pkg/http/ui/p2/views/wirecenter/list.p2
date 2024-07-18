@@ -1,0 +1,25 @@
+{% extends "../../base.p2" %}
+
+{% block title %}Wirecenters{% endblock %}
+
+{% block content %}
+<div>
+  <a href="/ui/wirecenters/new">Create New Wirecenter</a>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    {% for wirecenter in wirecenters %}
+    <tr>
+      <td><a href="ui/wirecenteres/{{ wirecenter.ID }}">{{ wirecenter.Name }}</a></td>
+      <td>
+        <form action="/ui/wirecenters/{{ wirecenter.ID }}/edit"><input type="submit" value="Edit" /></form>
+        <form action="/ui/wirecenters/{{ wirecenter.ID }}/delete"><input type="submit" value="Delete" /></form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

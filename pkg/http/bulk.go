@@ -11,11 +11,11 @@ import (
 )
 
 func (s *Server) uiViewBulkLanding(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/bulk_landing.p2", nil)
+	s.doTemplate(w, r, "views/bulk/landing.p2", nil)
 }
 
 func (s *Server) uiViewBulkOmniForm(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/bulk_omni.p2", nil)
+	s.doTemplate(w, r, "views/bulk/omni.p2", nil)
 }
 
 func (s *Server) uiViewBulkOmniCreate(w http.ResponseWriter, r *http.Request) {
@@ -157,7 +157,7 @@ func (s *Server) uiViewBulkLinecardForm(w http.ResponseWriter, r *http.Request) 
 		"wirecenters": wirecenters,
 	}
 
-	s.doTemplate(w, r, "p2/views/bulk_linecard.p2", ctx)
+	s.doTemplate(w, r, "views/bulk/linecard.p2", ctx)
 }
 
 func (s *Server) uiViewBulkLinecardCreate(w http.ResponseWriter, r *http.Request) {

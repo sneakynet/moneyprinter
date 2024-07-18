@@ -12,7 +12,7 @@ import (
 )
 
 func (s *Server) uiViewAccountCreateForm(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/account_create.p2", nil)
+	s.doTemplate(w, r, "views/account/create.p2", nil)
 }
 
 func (s *Server) uiViewAccountsList(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +22,7 @@ func (s *Server) uiViewAccountsList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/account_list.p2", pongo2.Context{"accounts": accounts})
+	s.doTemplate(w, r, "views/account/list.p2", pongo2.Context{"accounts": accounts})
 }
 
 func (s *Server) uiViewAccount(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +43,7 @@ func (s *Server) uiViewAccount(w http.ResponseWriter, r *http.Request) {
 		"lines":   lines,
 	}
 
-	s.doTemplate(w, r, "p2/views/account.p2", ctx)
+	s.doTemplate(w, r, "views/account/detail.p2", ctx)
 }
 
 func (s *Server) uiHandleAccountCreateSingle(w http.ResponseWriter, r *http.Request) {
@@ -89,7 +89,7 @@ func (s *Server) uiViewAccountBill(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/account_bill.p2", pongo2.Context{"account": account, "bill": bill})
+	s.doTemplate(w, r, "views/account/bill.p2", pongo2.Context{"account": account, "bill": bill})
 }
 
 func (s *Server) uiViewAccountProvisionLineForm(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +102,7 @@ func (s *Server) uiViewAccountProvisionLineForm(w http.ResponseWriter, r *http.R
 
 	ctx := pongo2.Context{"lines": lines}
 
-	s.doTemplate(w, r, "p2/views/account_provision_line.p2", ctx)
+	s.doTemplate(w, r, "views/account/provision_line.p2", ctx)
 }
 
 func (s *Server) uiViewAccountProvisionLine(w http.ResponseWriter, r *http.Request) {

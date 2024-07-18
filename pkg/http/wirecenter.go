@@ -15,7 +15,7 @@ func (s *Server) uiViewWirecenterList(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/wirecenter_list.p2", pongo2.Context{"wirecenters": wirecenters})
+	s.doTemplate(w, r, "views/wirecenter/list.p2", pongo2.Context{"wirecenters": wirecenters})
 }
 
 func (s *Server) uiViewWirecenterDetail(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func (s *Server) uiViewWirecenterDetail(w http.ResponseWriter, r *http.Request) 
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/wirecenter_detail.p2", pongo2.Context{"wirecenter": wirecenter})
+	s.doTemplate(w, r, "views/wirecenter/detail.p2", pongo2.Context{"wirecenter": wirecenter})
 }
 
 func (s *Server) uiViewWirecenterUpsert(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +48,7 @@ func (s *Server) uiViewWirecenterUpsert(w http.ResponseWriter, r *http.Request) 
 }
 
 func (s *Server) uiViewWirecenterFormCreate(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/wirecenter_create.p2", nil)
+	s.doTemplate(w, r, "views/wirecenter/create.p2", nil)
 }
 
 func (s *Server) uiViewWirecenterFormEdit(w http.ResponseWriter, r *http.Request) {
@@ -58,7 +58,7 @@ func (s *Server) uiViewWirecenterFormEdit(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/wirecenter_create.p2", pongo2.Context{"wirecenter": sw})
+	s.doTemplate(w, r, "views/wirecenter/create.p2", pongo2.Context{"wirecenter": sw})
 }
 
 func (s *Server) uiViewWirecenterDelete(w http.ResponseWriter, r *http.Request) {

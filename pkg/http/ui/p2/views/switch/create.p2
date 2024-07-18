@@ -1,0 +1,23 @@
+{% extends "../../base.p2" %}
+
+{% block title %}{{ switch|yesno:"Edit,Create,Create" }} Fee{% endblock %}
+
+{% block content %}
+<div>
+  <form method="POST">
+    <label for="switch_name">Name:</label>
+    <input name="switch_name" type="text" value="{{ switch.Name }}" />
+    <br />
+
+    <label for="switch_clli">CLLI:</label>
+    <input name="switch_clli" type="text" value="{{ switch.CLLI }}" />
+    <br />
+
+    <label for="switch_type">Type:</label>
+    <input name="switch_type" type="text" value="{{ switch.Type }}" />
+    <br />
+
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

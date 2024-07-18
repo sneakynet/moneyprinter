@@ -1,0 +1,27 @@
+{% extends "../../base.p2" %}
+
+{% block title %}Account Bill{% endblock %}
+
+{% block content %}
+<div>
+  <p>Name: {{ account.Name }}</p>
+  <p>Contact: {{ account.Contact }}</p>
+  <p>Alias: {{ account.Alias }}</p>
+
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Fee</th>
+      <th>Cost</th>
+    </tr>
+    {% for line in bill.Lines %}
+    <tr>
+      <td>{{ line.Item }}</td>
+      <td>{{ line.Fee }}</td>
+      <td>{{ line.Cost|money }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p>Grand Total: {{ bill.Cost()|money }}</p>
+</div>
+{% endblock %}

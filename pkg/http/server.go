@@ -3,7 +3,9 @@ package http
 import (
 	"context"
 	"io/fs"
+	"log/slog"
 	"net/http"
+	"os"
 
 	"github.com/flosch/pongo2/v5"
 	"github.com/go-chi/chi/v5"
@@ -12,8 +14,16 @@ import (
 
 // New retruns a ready to serve instance of the HTTP server.
 func New(opts ...Option) (*Server, error) {
-	sub, _ := fs.Sub(efs, "ui")
-	ldr := pongo2.NewFSLoader(sub)
+	var tplRoot fs.FS
+
+	if tpath := os.Getenv("MONEYD_TEMPLATE_PATH"); tpath != "" {
+		slog.Warn("Loading templates from debug path", "path", tpath)
+		tplRoot = os.DirFS(tpath)
+	} else {
+		tplRoot, _ = fs.Sub(efs, "ui")
+	}
+	p2Root, _ := fs.Sub(tplRoot, "p2")
+	ldr := pongo2.NewFSLoader(p2Root)
 
 	s := new(Server)
 	s.r = chi.NewRouter()
@@ -31,7 +41,7 @@ func New(opts ...Option) (*Server, error) {
 	s.r.Use(middleware.Heartbeat("/ping"))
 	s.r.Use(middleware.Logger)
 
-	s.r.Handle("/static/*", http.FileServer(http.FS(sub)))
+	s.r.Handle("/static/*", http.FileServer(http.FS(tplRoot)))
 
 	s.r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/ui", http.StatusSeeOther)
@@ -154,5 +164,5 @@ func (s *Server) Shutdown(ctx context.Context) error {
 }
 
 func (s *Server) uiViewLanding(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/landing.p2", nil)
+	s.doTemplate(w, r, "views/landing.p2", nil)
 }

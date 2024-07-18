@@ -1,0 +1,26 @@
+{% extends "../../base.p2" %}
+
+{% block title %}Switches{% endblock %}
+
+{% block content %}
+<div>
+  <a href="/ui/switches/new">Create New Switch</a>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>CLLI</th>
+      <th>Type</th>
+      <th>Lines</th>
+      <th>Equipments</th>
+    </tr>
+    <tr>
+      <td><a href="/ui/switches/{{ switch.ID }}">{{ switch.Name }}</a></td>
+      <td>{{ switch.CLLI }}</td>
+      <td>{{ switch.Type }}</td>
+      <td><a href="/ui/switches/{{ switch.ID }}/lines">{{ switch.Lines|length }}</a></td>
+      <td><a href="/ui/switches/{{ switch.ID }}/equipment">{{ switch.Equipment|length }}</a></td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

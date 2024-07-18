@@ -15,7 +15,7 @@ func (s *Server) uiViewLECList(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/lec_list.p2", pongo2.Context{"lecs": lecs})
+	s.doTemplate(w, r, "views/lec/list.p2", pongo2.Context{"lecs": lecs})
 }
 
 func (s *Server) uiViewLECDetail(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func (s *Server) uiViewLECDetail(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/lec_detail.p2", pongo2.Context{"lec": lec})
+	s.doTemplate(w, r, "views/lec/detail.p2", pongo2.Context{"lec": lec})
 }
 
 func (s *Server) uiViewLECUpsert(w http.ResponseWriter, r *http.Request) {
@@ -51,7 +51,7 @@ func (s *Server) uiViewLECUpsert(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) uiViewLECFormCreate(w http.ResponseWriter, r *http.Request) {
-	s.doTemplate(w, r, "p2/views/lec_create.p2", nil)
+	s.doTemplate(w, r, "views/lec/create.p2", nil)
 }
 
 func (s *Server) uiViewLECFormEdit(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +61,7 @@ func (s *Server) uiViewLECFormEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s.doTemplate(w, r, "p2/views/lec_create.p2", pongo2.Context{"lec": sw})
+	s.doTemplate(w, r, "views/lec/create.p2", pongo2.Context{"lec": sw})
 }
 
 func (s *Server) uiViewLECDelete(w http.ResponseWriter, r *http.Request) {

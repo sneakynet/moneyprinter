@@ -39,7 +39,7 @@ func (s *Server) uiViewCDRs(w http.ResponseWriter, r *http.Request) {
 		return cdrs[i].Start.Before(cdrs[j].Start)
 	})
 
-	s.doTemplate(w, r, "p2/views/cdr_list.p2", pongo2.Context{"cdrs": cdrs})
+	s.doTemplate(w, r, "views/cdr/list.p2", pongo2.Context{"cdrs": cdrs})
 }
 
 func (s *Server) apiCreateCDR(w http.ResponseWriter, r *http.Request) {

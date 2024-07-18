@@ -15,7 +15,7 @@ func (s *Server) uiViewDNList(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/dn_list.p2", pongo2.Context{"dns": dns})
+	s.doTemplate(w, r, "views/dn/list.p2", pongo2.Context{"dns": dns})
 }
 
 func (s *Server) uiViewDNDetail(w http.ResponseWriter, r *http.Request) {
@@ -26,7 +26,7 @@ func (s *Server) uiViewDNDetail(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-	s.doTemplate(w, r, "p2/views/dn_detail.p2", pongo2.Context{"dn": dn})
+	s.doTemplate(w, r, "views/dn/detail.p2", pongo2.Context{"dn": dn})
 }
 
 func (s *Server) uiViewDNFormCreate(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +57,7 @@ func (s *Server) uiViewDNFormCreate(w http.ResponseWriter, r *http.Request) {
 		"dntypes":  []string{"FXS-LOOP-START"},
 	}
 
-	s.doTemplate(w, r, "p2/views/dn_create.p2", ctx)
+	s.doTemplate(w, r, "views/dn/create.p2", ctx)
 }
 
 func (s *Server) uiViewDNFormEdit(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +79,7 @@ func (s *Server) uiViewDNFormEdit(w http.ResponseWriter, r *http.Request) {
 		"dntypes":   []string{"FXS-LOOP-START"},
 	}
 
-	s.doTemplate(w, r, "p2/views/dn_create.p2", ctx)
+	s.doTemplate(w, r, "views/dn/create.p2", ctx)
 }
 
 func (s *Server) uiViewDNUpsert(w http.ResponseWriter, r *http.Request) {
@@ -94,7 +94,7 @@ func (s *Server) uiViewDNUpsert(w http.ResponseWriter, r *http.Request) {
 		ID:        ID,
 		AccountID: s.strToUint(r.FormValue("account_id")),
 		LineID:    s.strToUint(r.FormValue("line_id")),
-		Number:    s.strToUint(r.FormValue("dn_number")),
+		Number:    s.strToUint(r.FormValue("dn/number")),
 		Display:   r.FormValue("dn_display"),
 	}
 
