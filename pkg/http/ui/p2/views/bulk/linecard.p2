@@ -35,7 +35,7 @@
     <input name="card_name" type="text" />
     <br />
 
-    <label for="port_tmpl">Port Template Expression; This must contain <pre>{% templatetag openvariable %} port {% templatetag closevariable %}</pre> and will be itereated from 0 to the provided port count to create the line equipment objects.</label>
+    <label for="port_tmpl">Port Template Expression; This must contain <pre>{% templatetag openvariable %} id {% templatetag closevariable %}</pre> and will be itereated from 0 to the provided port count to create the line equipment objects.</label>
     <input name="port_tmpl" type="text" />
     <br />
 
