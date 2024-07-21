@@ -208,3 +208,39 @@ func (s *Server) uiViewBulkLinecardCreate(w http.ResponseWriter, r *http.Request
 
 	http.Redirect(w, r, fmt.Sprintf("/ui/switches/%d/equipment/filter/%s", swID, eqName), http.StatusSeeOther)
 }
+
+func (s *Server) uiViewBulkAccountsForm(w http.ResponseWriter, r *http.Request) {
+	s.doTemplate(w, r, "views/bulk/omni.p2", nil)
+}
+
+func (s *Server) uiViewBulkAccountsCreate(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	f, _, err := r.FormFile("accounts_file")
+	if err != nil {
+		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+		return
+	}
+	defer f.Close()
+	records := s.csvToMap(f)
+
+	for _, record := range records {
+		if len(record["Name"]) == 0 {
+			continue
+		}
+
+		_, err := s.d.AccountGet(&types.Account{Name: record["Name"]})
+		if err != nil {
+			slog.Warn("Error fetching account by name", "error", err)
+			_, err = s.d.AccountCreate(&types.Account{
+				Name:    record["Name"],
+				Contact: record["Contact"],
+				Alias:   record["Alias"],
+			})
+			if err != nil {
+				s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
+				return
+			}
+		}
+	}
+	http.Redirect(w, r, "/ui/accounts", http.StatusSeeOther)
+}

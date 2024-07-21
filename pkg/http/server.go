@@ -54,6 +54,8 @@ func New(opts ...Option) (*Server, error) {
 		r.Post("/omni", s.uiViewBulkOmniCreate)
 		r.Get("/line-card", s.uiViewBulkLinecardForm)
 		r.Post("/line-card", s.uiViewBulkLinecardCreate)
+		r.Get("/accounts", s.uiViewBulkAccountsForm)
+		r.Post("/accounts", s.uiViewBulkAccountsCreate)
 	})
 
 	s.r.Route("/ui/accounts", func(r chi.Router) {
