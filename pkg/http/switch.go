@@ -1,10 +1,8 @@
 package http
 
 import (
-	"cmp"
 	"fmt"
 	"net/http"
-	"slices"
 
 	"github.com/flosch/pongo2/v5"
 	"github.com/go-chi/chi/v5"
@@ -89,13 +87,6 @@ func (s *Server) uiViewSwitchEquipment(w http.ResponseWriter, r *http.Request) {
 		s.doTemplate(w, r, "errors/internal.p2", pongo2.Context{"error": err.Error()})
 		return
 	}
-
-	slices.SortFunc(equipment, func(a, b types.Equipment) int {
-		return cmp.Or(
-			cmp.Compare(a.Name, b.Name),
-			cmp.Compare(a.Port, b.Port),
-		)
-	})
 
 	ctx := pongo2.Context{
 		"switch":    sw,
