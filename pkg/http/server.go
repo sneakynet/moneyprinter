@@ -29,6 +29,7 @@ func New(opts ...Option) (*Server, error) {
 	s.r = chi.NewRouter()
 	s.n = &http.Server{}
 	s.tpl = pongo2.NewSet("html", ldr)
+	_, s.tpl.Debug = os.LookupEnv("PONGO2_DEBUG")
 
 	for _, o := range opts {
 		o(s)
