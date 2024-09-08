@@ -21,6 +21,10 @@
     <input name="lec_website" type="text" value="{{ lec.Website }}" />
     <br />
 
+    <label for="lec_billmsg">Billing Message:</label>
+    <input name="lec_billmsg" type="text" value="{{ lec.BillMsg }}" />
+    <br />
+
     <input type="submit" />
   </form>
 </div>

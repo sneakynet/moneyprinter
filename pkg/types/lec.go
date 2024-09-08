@@ -14,6 +14,7 @@ type LEC struct {
 	Byline  string
 	Contact string
 	Website string
+	BillMsg string
 	Logo    Logo
 }
 
