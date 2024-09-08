@@ -34,6 +34,8 @@ func main() {
 	switch *cdrType {
 	case "cisco":
 		parser = new(cdr.Cisco)
+	case "meridian":
+		parser = new(cdr.Meridian)
 	default:
 		slog.Error("Invalid CDR type; valid options are 'cisco'")
 		return
