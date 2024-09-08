@@ -39,7 +39,7 @@ func (s *Server) uiViewLECUpsert(w http.ResponseWriter, r *http.Request) {
 		Byline:  r.FormValue("lec_byline"),
 		Contact: r.FormValue("lec_contact"),
 		Website: r.FormValue("lec_website"),
-		BillMsg: r.FormValue("leg_billmsg"),
+		BillMsg: r.FormValue("lec_billmsg"),
 	}
 
 	_, err := s.d.LECSave(&sw)
