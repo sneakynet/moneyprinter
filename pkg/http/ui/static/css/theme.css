@@ -41,8 +41,12 @@ form input {
   width: 400px;
 }
 
-form input[type="submit"] {
+.form-right-button {
   margin-left: 204px;
+  width: 408px;
+}
+
+form input[type="submit"] {
   width: 408px;
 }
 
@@ -125,6 +129,10 @@ form input[type="submit"] {
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.p-3 {
+  padding: 1rem;
 }
 
 .p-5 {

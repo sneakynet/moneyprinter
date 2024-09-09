@@ -32,7 +32,7 @@
     <input type="text" name="account_alias" />
     <br />
 
-    <input type="submit" />
+    <input class="form-right-submit" type="submit" />
   </form>
 </div>
 {% endblock %}
