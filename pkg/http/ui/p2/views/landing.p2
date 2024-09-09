@@ -2,16 +2,39 @@
 
 {% block title %}MoneyPrinter Home{% endblock %}
 
-{% block content %}
-<div>
-  <h1>Welcome to MoneyPrinter</h1>
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/accounts">
+        Manage Accounts
+      </a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/switches">
+        Manage Switches
+      </a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/wirecenters">
+        Manage Wirecenters
+      </a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/fees">
+        Manage Fees
+      </a>
+    </div>
+  </div>
+{% endblock %}
 
-  <p>Actions:</p>
-  <ul>
-    <li><a href="/ui/accounts">Manage Accounts</a></li>
-    <li><a href="/ui/switches">Manage Switches</a></li>
-    <li><a href="/ui/wirecenters">Manage Wirenters</a></li>
-    <li><a href="/ui/fees">Manage Fees</a></li>
-  </ul>
-</div>
+{% block bodystyle %}p-5 text-center{% endblock %}
+
+{% block content %}
+  <h2 class="roboto">Welcome to MoneyPrinter</h2>
+  <p class="roboto">
+    This is the home page for MoneyPrinter. Use the navigation bar above to manage your accounts, switches, wirecenters, and fees.
+  </p>
 {% endblock %}

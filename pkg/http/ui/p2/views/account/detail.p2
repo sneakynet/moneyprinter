@@ -2,34 +2,50 @@
 
 {% block title %}Account{% endblock %}
 
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/accounts">
+        Accounts
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodystyle %}p-5 text-center{% endblock %}
+
 {% block content %}
 <div>
-  <p>Name: {{ account.Name }}</p>
-  <p>Contact: {{ account.Contact }}</p>
-  <p>Alias: {{ account.Alias }}</p>
-
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>DN</th>
-      <th>CNAM</th>
-      <th>Type</th>
-      <th>Actions</th>
-    </tr>
-    <a href="/ui/accounts/{{ account.ID }}/provision-line">Provision Line</a>
-    {% for line in lines %}
-    {% for dn in line.DNs %}
-    <tr>
-      <td><a href="/ui/lines/{{ line.ID }}">{{ line.ID }}</a></td>
-      <td>{{ dn.Number }}</td>
-      <td>{{ dn.Display }}</td>
-      <td>{{ line.Type }}</td>
-      <td>
-        <a href="/ui/cdrs?dn={{ dn.Number }}">CDRs</a>
-      </td>
-    </tr>
-    {% endfor %}
-    {% endfor %}
-  </table>
+  <p class="py-2">Name: {{ account.Name }}</p>
+  <p class="py-2">Contact: {{ account.Contact }}</p>
+  <p class="py-2">Alias: {{ account.Alias }}</p>
+  <a class="py-2" href="/ui/accounts/{{ account.ID }}/provision-line">Provision Line</a>
+  <div class="py-3">
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>DN</th>
+        <th>CNAM</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+      {% for line in lines %}
+      {% for dn in line.DNs %}
+      <tr>
+        <td><a href="/ui/lines/{{ line.ID }}">{{ line.ID }}</a></td>
+        <td>{{ dn.Number }}</td>
+        <td>{{ dn.Display }}</td>
+        <td>{{ line.Type }}</td>
+        <td>
+          <a href="/ui/cdrs?dn={{ dn.Number }}">CDRs</a>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endfor %}
+    </table>
+  </div>
 </div>
 {% endblock %}
