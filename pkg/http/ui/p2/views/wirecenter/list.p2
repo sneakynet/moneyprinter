@@ -15,7 +15,6 @@
   </div>
 {% endblock %}
 
-
 {% block content %}
 <div>
   <table>
