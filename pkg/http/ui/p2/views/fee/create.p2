@@ -2,6 +2,19 @@
 
 {% block title %}{{ fee|yesno:"Edit,Create,Create" }} Fee{% endblock %}
 
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/fees">
+        Fees
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
 {% block content %}
 <div>
   <form method="POST">

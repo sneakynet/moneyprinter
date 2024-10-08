@@ -3,6 +3,7 @@ body {
   width: 100%;
   height: 100%;
   flex-direction: column;
+  font-family: "Roboto";
 }
 
 h2 {
@@ -26,6 +27,10 @@ td {
 table {
   width: 100%;
   text-align: center;
+}
+
+th {
+  font-weight: bold;
 }
 
 form {

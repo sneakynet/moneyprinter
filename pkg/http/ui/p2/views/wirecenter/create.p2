@@ -2,6 +2,20 @@
 
 {% block title %}{{ switch|yesno:"Edit,Create,Create" }} Wirecenter{% endblock %}
 
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/wirecenters">
+        Wirecenters
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+
 {% block content %}
 <div>
   <form method="POST">
