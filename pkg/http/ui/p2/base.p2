@@ -9,8 +9,10 @@
     {% block head %}
     {% endblock %}
   </head>
-  <body class="{% block bodystyle %}{% endblock %}">
-    <div id="content">
+  <body>
+    {% block nav %}
+    {% endblock %}
+    <div class="{% block bodystyle %}{% endblock %}" id="content">
       {% block content %}
       {% endblock %}
     </div>

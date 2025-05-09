@@ -2,6 +2,21 @@
 
 {% block title %}Create Account{% endblock %}
 
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/accounts">
+        Accounts
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodystyle %}p-5 text-center{% endblock %}
+
 {% block content %}
 <div>
   <form method="POST" action="/ui/accounts">
@@ -17,7 +32,7 @@
     <input type="text" name="account_alias" />
     <br />
 
-    <input type="submit" />
+    <input class="form-right-submit" type="submit" />
   </form>
 </div>
 {% endblock %}

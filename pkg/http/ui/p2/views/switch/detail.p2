@@ -2,10 +2,21 @@
 
 {% block title %}Switches{% endblock %}
 
-{% block content %}
-<div>
-  <a href="/ui/switches/new">Create New Switch</a>
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/switches">
+        Manage Switches
+      </a>
+    </div>
+  </div>
+{% endblock %}
 
+{% block content %}
+<div class="p-5">
   <table>
     <tr>
       <th>Name</th>

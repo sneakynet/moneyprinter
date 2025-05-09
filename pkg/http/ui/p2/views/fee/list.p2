@@ -2,10 +2,20 @@
 
 {% block title %}Fees{% endblock %}
 
-{% block content %}
-<div>
-  <a href="/ui/fees/new">Create New Fee</a>
+{% block nav %}
+  <div class="flex-row nav py-2">
+    <div class="flex-fixed px-3">
+      <a class="logo nikea" href="/">MoneyPrinter</a>
+    </div>
+    <div class="flex-fixed px-3">
+      <a class="roboto" href="/ui/fees/new">
+        Create New Fee
+      </a>
+    </div>
+  </div>
+{% endblock %}
 
+{% block content %}
   <table>
     <tr>
       <th>Name</th>
@@ -27,5 +37,4 @@
     </tr>
     {% endfor %}
   </table>
-</div>
 {% endblock %}
